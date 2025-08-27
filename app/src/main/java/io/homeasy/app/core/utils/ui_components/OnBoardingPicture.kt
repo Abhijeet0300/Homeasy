@@ -1,4 +1,4 @@
-package io.homeasy.app.core.ui_components
+package io.homeasy.app.core.utils.ui_components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

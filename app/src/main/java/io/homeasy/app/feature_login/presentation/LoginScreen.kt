@@ -1,5 +1,6 @@
 package io.homeasy.app.feature_login.presentation
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,30 +14,35 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.homeasy.app.core.ui_components.LoginRegisterScreenTitle
+import io.homeasy.app.core.utils.ui_components.LoginRegisterScreenTitle
 import io.homeasy.app.R
-import io.homeasy.app.core.ui_components.AppTextField
+import io.homeasy.app.core.utils.ui_components.AppTextField
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import io.homeasy.app.core.ui.theme.AppTypography
-import io.homeasy.app.core.ui.theme.Dark
-import io.homeasy.app.core.ui_components.HasAccount
-import io.homeasy.app.core.ui_components.Or
-import io.homeasy.app.core.ui_components.RegularButton
-import io.homeasy.app.core.ui_components.SocialMediaLogin
+import androidx.hilt.navigation.compose.hiltViewModel
+import io.homeasy.app.core.utils.ui.theme.AppTypography
+import io.homeasy.app.core.utils.ui.theme.Dark
+import io.homeasy.app.core.utils.ui_components.HasAccount
+import io.homeasy.app.core.utils.ui_components.Or
+import io.homeasy.app.core.utils.ui_components.RegularButton
+import io.homeasy.app.core.utils.ui_components.SocialMediaLogin
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 
-@Preview(showBackground = true)
+
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
 
     var emailAddress = remember {
@@ -48,6 +54,10 @@ fun LoginScreen(
     }
 
     var screenHeight = LocalConfiguration.current.screenHeightDp.dp
+
+    val user by viewModel.user.collectAsState()
+    val loginMessage by viewModel.loginMessage.collectAsState()
+
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -111,7 +121,10 @@ fun LoginScreen(
 
         RegularButton(
             label = stringResource(id = R.string.login),
-            onClick = {}
+            onClick = {
+                viewModel.loginWithEmail(email = emailAddress.value, password = password.value)
+                Log.i("LoginScreen", "User after login: $loginMessage")
+            }
         )
         Spacer(modifier = Modifier.height(18.dp))
 

@@ -1,4 +1,4 @@
-package io.homeasy.app.core.ui.theme
+package io.homeasy.app.core.utils.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

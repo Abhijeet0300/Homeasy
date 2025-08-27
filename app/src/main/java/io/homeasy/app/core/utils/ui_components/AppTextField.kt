@@ -1,4 +1,4 @@
-package io.homeasy.app.core.ui_components
+package io.homeasy.app.core.utils.ui_components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,11 +24,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.homeasy.app.core.ui.theme.AppTypography
-import io.homeasy.app.core.ui.theme.Black
-import io.homeasy.app.core.ui.theme.Dark
-import io.homeasy.app.core.ui.theme.Grey
-import io.homeasy.app.core.ui.theme.White
+import io.homeasy.app.core.utils.ui.theme.AppTypography
+import io.homeasy.app.core.utils.ui.theme.Black
+import io.homeasy.app.core.utils.ui.theme.Grey
+import io.homeasy.app.core.utils.ui.theme.White
 
 @Preview(showBackground = true)
 @Composable

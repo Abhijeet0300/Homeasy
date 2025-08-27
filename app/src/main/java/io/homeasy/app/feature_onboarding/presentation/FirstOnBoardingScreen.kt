@@ -22,17 +22,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import io.homeasy.app.core.ui_components.OnBoardingPicture
-import io.homeasy.app.core.ui_components.WelcomeMessage
+import io.homeasy.app.core.utils.ui_components.OnBoardingPicture
+import io.homeasy.app.core.utils.ui_components.WelcomeMessage
 import io.homeasy.app.R
-import io.homeasy.app.core.ui.theme.AppTypography
-import io.homeasy.app.core.ui_components.RegularButton
+import io.homeasy.app.core.utils.ui.theme.AppTypography
+import io.homeasy.app.core.utils.ui_components.RegularButton
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
-import io.homeasy.app.core.ui.theme.Dark
+import io.homeasy.app.core.utils.ui.theme.Dark
 
 @Composable
 fun FirstOnBoardingScreen(

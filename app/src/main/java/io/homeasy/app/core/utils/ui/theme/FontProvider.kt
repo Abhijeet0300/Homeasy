@@ -1,4 +1,4 @@
-package io.homeasy.app.core.ui.theme
+package io.homeasy.app.core.utils.ui.theme
 
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight

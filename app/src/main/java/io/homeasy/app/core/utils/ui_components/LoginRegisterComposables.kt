@@ -1,4 +1,4 @@
-package io.homeasy.app.core.ui_components
+package io.homeasy.app.core.utils.ui_components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -23,10 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.homeasy.app.R
-import io.homeasy.app.core.ui.theme.AppTypography
-import io.homeasy.app.core.ui.theme.Black
-import io.homeasy.app.core.ui.theme.ColoredTextColor
-import io.homeasy.app.core.ui.theme.Dark
+import io.homeasy.app.core.utils.ui.theme.AppTypography
+import io.homeasy.app.core.utils.ui.theme.Black
+import io.homeasy.app.core.utils.ui.theme.ColoredTextColor
+import io.homeasy.app.core.utils.ui.theme.Dark
 
 @Preview(showBackground = true)
 @Composable

@@ -1,6 +1,5 @@
-package io.homeasy.app.core.ui_components
+package io.homeasy.app.core.utils.ui_components
 
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CornerSize
@@ -13,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import io.homeasy.app.core.ui.theme.AppTypography
-import io.homeasy.app.core.ui.theme.ButtonColor
+import io.homeasy.app.core.utils.ui.theme.AppTypography
+import io.homeasy.app.core.utils.ui.theme.ButtonColor
 
 @Preview(showBackground = true)
 @Composable

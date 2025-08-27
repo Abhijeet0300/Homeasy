@@ -17,6 +17,24 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        ndk{
+            abiFilters.addAll(setOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
+        }
+
+        packaging{
+            resources{
+                pickFirsts += setOf(
+                    "lib/*/libc++_shared.so",
+                    "lib/*/libyuv.so",
+                    "lib/*/libopenh264.so"
+                )
+            }
+        }
+
+        configurations.all {
+            exclude(group = "com.thingclips.smart", module = "thingsmart-modularCampAnno")
+        }
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -30,12 +48,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "11"
+
+//    kotlinOptions {
+//        jvmTarget = "11"
+//    }
+//
+    kotlin{
+        jvmToolchain(21)
     }
+
+
     buildFeatures {
         compose = true
     }
@@ -58,8 +83,9 @@ dependencies {
     //View model compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    //Lifecycle runtime compose
+    //Lifecycle for compose
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.extensions)
 
     //Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
@@ -70,7 +96,10 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
 
     //tuya integration
-    
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
+    implementation (libs.fastjson)
+    implementation (libs.okhttp.urlconnection)
+    implementation(libs.thingsmart)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
