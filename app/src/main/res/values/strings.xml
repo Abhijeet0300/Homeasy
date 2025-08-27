@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">App</string>
+
+    <string name="homeasy">Homeasy</string>
+    <string name="password_toggle">Password toggle</string>
+    <string name="forgot_password">Forgot password?</string>
+
+    // Onboarding Screen Strings
+    <string name="welcome">Welcome</string>
+    <string name="to">To</string>
+    <string name="skip">Skip ></string>
+    <string name="onboarding_first_message">Control your entire home with intelligence</string>
+    <string name="onboarding_second_message">Control your home with Alexa and Google Assistant</string>
+    <string name="onboarding_third_message">Reduce electricity usage with automated controls</string>
+    <string name="next">Next ></string>
+
+    // Login Screen Strings
+    <string name="smart_living">Smart Living, Made Simple</string>
+    <string name="email_address">Email address</string>
+    <string name="enter_email_address">abc@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter password</string>
+    <string name="login">Login</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="register">Register</string>
+    <string name="already_have_an_account">Already have an account?</string>
+
+
+    //content description for accessibility
+    <string name="or">Or</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="login_with_google">Login with Google</string>
+
+</resources>
