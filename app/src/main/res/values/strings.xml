@@ -14,16 +14,20 @@
     <string name="onboarding_third_message">Reduce electricity usage with automated controls</string>
     <string name="next">Next ></string>
 
-    // Login Screen Strings
+    // Login Register Screen Strings
     <string name="smart_living">Smart Living, Made Simple</string>
     <string name="email_address">Email address</string>
     <string name="enter_email_address">abc@gmail.com</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
     <string name="enter_password">Enter password</string>
+    <string name="enter_confirm_password">Enter confirm password</string>
     <string name="login">Login</string>
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">Register</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="i_agree">By clicking register I agree with</string>
+    <string name="terms_and_conditions">Terms &amp; Conditions</string>
 
 
     //content description for accessibility

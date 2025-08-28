@@ -161,7 +161,7 @@ fun HasAccount(
     ) {
         Text(
             text = stringResource(id = questionTextId),
-            style = AppTypography.bodyLarge,
+            style = AppTypography.bodyMedium,
             color = Black
         )
 
@@ -170,7 +170,7 @@ fun HasAccount(
                 onClick = {}
             ),
             text = stringResource(id = actionTextId),
-            style = AppTypography.bodyLarge,
+            style = AppTypography.bodyMedium,
             fontWeight = FontWeight.Bold,
             color = ColoredTextColor
         )

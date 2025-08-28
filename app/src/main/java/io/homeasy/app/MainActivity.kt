@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import io.homeasy.app.core.utils.ui.theme.AppTheme
 import io.homeasy.app.feature_login.presentation.LoginScreen
+import io.homeasy.app.feature_login.presentation.RegisterScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(
+                    RegisterScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

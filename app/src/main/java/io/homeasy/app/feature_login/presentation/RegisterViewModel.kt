@@ -1,5 +1,6 @@
 package io.homeasy.app.feature_login.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thingclips.smart.android.user.bean.User
@@ -16,7 +17,7 @@ class RegisterViewModel @Inject constructor(
     private val authRepository : AuthRepositoryImpl
 ) : ViewModel() {
 
-    private val _isCodeSent = MutableStateFlow<Boolean>(false)
+    private val _isCodeSent = MutableStateFlow<Boolean?>(false)
     val isCodeSent = _isCodeSent.asStateFlow()
 
     private val _registrationMessage = MutableStateFlow<String?>(null)
@@ -30,9 +31,11 @@ class RegisterViewModel @Inject constructor(
             authRepository.sendVerificationCode(email, countryCode)
                 .onSuccess {
                     _isCodeSent.value = true
+                    Log.i("RegisterViewModel", "Verification code sent successfully")
                 }
                 .onFailure {
                     _isCodeSent.value = false
+                    Log.e("RegisterViewModel", "Failed to send verification code: ${it.message}")
                 }
         }
     }
