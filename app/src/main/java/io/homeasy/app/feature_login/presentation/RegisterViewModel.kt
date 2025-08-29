@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.thingclips.smart.android.user.bean.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.homeasy.app.feature_login.data.AuthRepositoryImpl
-import io.homeasy.app.feature_login.domain.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -26,9 +25,15 @@ class RegisterViewModel @Inject constructor(
     private val _user = MutableStateFlow<User?>(null)
     val user = _user.asStateFlow()
 
-    fun sendVerificationCode(email : String, countryCode : String = "91") {
+    private val _email = MutableStateFlow<String>("")
+    val email = _email.asStateFlow()
+
+    private val _password = MutableStateFlow<String>("")
+    val password = _password.asStateFlow()
+
+    fun sendVerificationCode() {
         viewModelScope.launch {
-            authRepository.sendVerificationCode(email, countryCode)
+            authRepository.sendVerificationCode(_email.value, "91")
                 .onSuccess {
                     _isCodeSent.value = true
                     Log.i("RegisterViewModel", "Verification code sent successfully")
@@ -57,5 +62,13 @@ class RegisterViewModel @Inject constructor(
                     _registrationMessage.value = it.message
                 }
         }
+    }
+
+    fun setEmail(email : String) {
+        _email.value = email
+    }
+
+    fun setPassword(password : String) {
+        _password.value = password
     }
 }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,6 +49,9 @@ fun RegisterScreen(
         mutableStateOf("")
     }
     var screenHeight = LocalConfiguration.current.screenHeightDp.dp
+
+    val  emailVM by viewModel.email.collectAsState()
+    val passwordVM by viewModel.password.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
@@ -124,8 +128,11 @@ fun RegisterScreen(
         RegularButton(
             label = stringResource(id = R.string.register),
             onClick = {
-                viewModel.sendVerificationCode(email = emailAddress.value, countryCode = "91")
-            }
+                viewModel.setEmail(emailAddress.value)
+                viewModel.setPassword(password.value)
+                viewModel.sendVerificationCode()
+            },
+            enabled = if(emailAddress.value.isEmpty() || password.value.isEmpty() || confirmPassword.value.isEmpty() || (password.value != confirmPassword.value) ) false else true
         )
 
         Spacer(modifier = Modifier.height(15.dp ))

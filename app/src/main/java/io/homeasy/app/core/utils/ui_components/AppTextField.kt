@@ -31,7 +31,7 @@ import io.homeasy.app.core.utils.ui.theme.White
 
 @Preview(showBackground = true)
 @Composable
-fun AppTextField(
+fun  AppTextField(
     value : MutableState<String> = mutableStateOf(""),
     label : String = "Label",
     placeholder :String = "abc@gmail.com",
@@ -75,7 +75,9 @@ fun AppTextField(
                 unfocusedBorderColor = Grey
             ),
             shape = RoundedCornerShape(corner = CornerSize(14.dp)),
-            visualTransformation = if(!passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if(isPasswordField) {
+                if(passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
+            } else VisualTransformation.None,
             trailingIcon = {
                 if(isPasswordField) {
                     IconButton(onClick = {passwordVisible.value = !passwordVisible.value}) {

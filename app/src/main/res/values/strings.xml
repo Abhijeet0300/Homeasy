@@ -28,6 +28,11 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="i_agree">By clicking register I agree with</string>
     <string name="terms_and_conditions">Terms &amp; Conditions</string>
+    <string name="verify_your_phone">Verify your phone number</string>
+    <string name="sent_6_digit_code">We\'ve sent a 6-digit verification code to</string>
+    <string name="to_email">abc@gmail.com</string>
+    <string name="verify_code">Verify code</string>
+    <string name="resend_verification_code">Resend verification code</string>
 
 
     //content description for accessibility
