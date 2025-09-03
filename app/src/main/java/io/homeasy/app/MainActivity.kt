@@ -9,14 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import io.homeasy.app.core.navigation.AppNavigation
 import io.homeasy.app.core.utils.ui.theme.AppTheme
 import io.homeasy.app.core.utils.ui.theme.White
 import io.homeasy.app.core.utils.ui_components.HomeasyAppBar
-import io.homeasy.app.feature_login.presentation.LoginScreen
-import io.homeasy.app.feature_login.presentation.OtpScreen
-import io.homeasy.app.feature_login.presentation.RegisterScreen
-import io.homeasy.feature_home.presentation.HomeScreen
+import io.homeasy.app.feature_home.presentation.HomeScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

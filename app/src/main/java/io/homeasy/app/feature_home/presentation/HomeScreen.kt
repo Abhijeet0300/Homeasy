@@ -1,4 +1,4 @@
-package io.homeasy.feature_home.presentation
+package io.homeasy.app.feature_home.presentation
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
