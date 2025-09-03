@@ -37,12 +37,17 @@ import io.homeasy.app.core.utils.ui_components.RegularButton
 import io.homeasy.app.core.utils.ui_components.SocialMediaLogin
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
+import io.homeasy.app.feature_login.data.User
 
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
+    toRegisterScreen : () -> Unit = {},
+    toHomeScreen : () -> Unit = {},
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
 
     var emailAddress = remember {
@@ -123,6 +128,14 @@ fun LoginScreen(
             label = stringResource(id = R.string.login),
             onClick = {
                 viewModel.loginWithEmail(email = emailAddress.value, password = password.value)
+                if(user != null) {
+                    val currentUser = User(
+                        id = user!!.uid,
+                        email = user!!.email,
+                        phone = user!!.mobile,
+                        username = user!!.username
+                    )
+                }
                 Log.i("LoginScreen", "User after login: $loginMessage")
             }
         )
@@ -152,7 +165,10 @@ fun LoginScreen(
 
         HasAccount(
             questionTextId = R.string.no_account,
-            actionTextId = R.string.register
+            actionTextId = R.string.register,
+            action = {
+                toRegisterScreen()
+            }
         )
 
         Spacer(modifier = Modifier.height(20.dp) )

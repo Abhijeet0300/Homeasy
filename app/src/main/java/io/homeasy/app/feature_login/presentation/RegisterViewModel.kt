@@ -31,6 +31,15 @@ class RegisterViewModel @Inject constructor(
     private val _password = MutableStateFlow<String>("")
     val password = _password.asStateFlow()
 
+    private val _otp = MutableStateFlow<String>("")
+    val otp = _otp.asStateFlow()
+
+    private val _otpVerificationMessage = MutableStateFlow<String?>(null)
+    val otpVerificationMessage = _otpVerificationMessage.asStateFlow()
+
+    private val _isValidOtp = MutableStateFlow<Boolean?>(null)
+    val isValidOtp = _isValidOtp.asStateFlow()
+
     fun sendVerificationCode() {
         viewModelScope.launch {
             authRepository.sendVerificationCode(_email.value, "91")
@@ -60,6 +69,29 @@ class RegisterViewModel @Inject constructor(
                 .onFailure {
                     // Handle registration failure, e.g., show error message
                     _registrationMessage.value = it.message
+                }
+        }
+    }
+
+    fun verifyCode(
+        email: String,
+        countryCode: String = "91",
+        verificationCode: String
+    ) {
+        viewModelScope.launch {
+            authRepository.verifyCode(email, countryCode, verificationCode)
+                .onSuccess { isValid ->
+                    if (isValid) {
+                        _isValidOtp.value = true
+                        _otpVerificationMessage.value = "Verification successful"
+                    } else {
+                        _isValidOtp.value = false
+                        _otpVerificationMessage.value = "Invalid verification code"
+                    }
+                }
+                .onFailure {
+                    _isValidOtp.value = false
+                    _otpVerificationMessage.value = it.message
                 }
         }
     }

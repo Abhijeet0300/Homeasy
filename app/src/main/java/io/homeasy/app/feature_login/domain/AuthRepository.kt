@@ -17,4 +17,10 @@ interface AuthRepository {
         email : String,
         password: String
     ) : Result<User?>
+
+    suspend fun verifyCode(
+        email: String,
+        countryCode: String,
+        verificationCode: String
+    ): Result<Boolean>
 }

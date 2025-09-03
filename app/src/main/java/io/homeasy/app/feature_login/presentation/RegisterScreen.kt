@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import io.homeasy.app.R
 import io.homeasy.app.core.utils.ui_components.AppTextField
 import io.homeasy.app.core.utils.ui_components.HasAccount
@@ -30,12 +31,15 @@ import io.homeasy.app.core.utils.ui_components.LoginRegisterScreenTitle
 import io.homeasy.app.core.utils.ui_components.Or
 import io.homeasy.app.core.utils.ui_components.RegularButton
 import io.homeasy.app.core.utils.ui_components.SocialMediaLogin
+import io.homeasy.app.core.utils.validateEmailAndPassword
 
 
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
-    viewModel : RegisterViewModel = hiltViewModel()
+    navController: NavController,
+    viewModel : RegisterViewModel = hiltViewModel(),
+    toOtpScreen : () -> Unit = {}
 ) {
     var emailAddress = remember {
         mutableStateOf("")
@@ -131,8 +135,9 @@ fun RegisterScreen(
                 viewModel.setEmail(emailAddress.value)
                 viewModel.setPassword(password.value)
                 viewModel.sendVerificationCode()
+                toOtpScreen()
             },
-            enabled = if(emailAddress.value.isEmpty() || password.value.isEmpty() || confirmPassword.value.isEmpty() || (password.value != confirmPassword.value) ) false else true
+            enabled = validateEmailAndPassword(email = emailAddress.value, password = password.value),
         )
 
         Spacer(modifier = Modifier.height(15.dp ))

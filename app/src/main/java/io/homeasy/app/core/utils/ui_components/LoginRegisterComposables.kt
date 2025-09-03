@@ -153,7 +153,8 @@ fun SocialMediaLogin(
 @Composable
 fun HasAccount(
     questionTextId : Int = R.string.no_account,
-    actionTextId : Int = R.string.register
+    actionTextId : Int = R.string.register,
+    action : () -> Unit = {}
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -167,7 +168,9 @@ fun HasAccount(
 
         Text(
             modifier = Modifier.combinedClickable(
-                onClick = {}
+                onClick = {
+                    action()
+                }
             ),
             text = stringResource(id = actionTextId),
             style = AppTypography.bodyMedium,

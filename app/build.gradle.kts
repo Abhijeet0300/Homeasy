@@ -101,6 +101,9 @@ dependencies {
     implementation (libs.okhttp.urlconnection)
     implementation(libs.thingsmart)
 
+    //Navigation compose
+    implementation(libs.androidx.navigation.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

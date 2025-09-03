@@ -33,7 +33,16 @@
     <string name="to_email">abc@gmail.com</string>
     <string name="verify_code">Verify code</string>
     <string name="resend_verification_code">Resend verification code</string>
+    <string name="username">Username</string>
+    <string name="enter_username">Enter username</string>
+    <string name="mobile">Mobile</string>
+    <string name="enter_mobile">Enter mobile</string>
+    <string name="save_text">Save</string>
 
+    //Home Screen visuals
+    <string name="good_evening">Good Evening</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="good_afternoon">Good Afternoon</string>
 
     //content description for accessibility
     <string name="or">Or</string>

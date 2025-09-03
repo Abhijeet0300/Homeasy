@@ -69,4 +69,35 @@ class TuyaAuthDataSource @Inject constructor(
 
         }
     }
+
+    suspend fun verifyCode(
+        email : String,
+        countryCode : String = "91",
+        verificationCode : String
+    ) : Result<Boolean> {
+        return suspendCancellableCoroutine { continuation ->
+            userInstance.checkCodeWithUserName(
+                email,
+                "",
+                countryCode,
+                verificationCode,
+                1,
+                object : IResultCallback{
+                    override fun onError(code: String?, error: String?) {
+                        continuation.resume(Result.failure(Exception("Error code: $code, error: $error")), null)
+                    }
+
+                    override fun onSuccess() {
+                        continuation.resume(Result.success(true), null)
+                    }
+
+                }
+            )
+        }
+    }
+
+    suspend fun setUserDetails() {
+        return suspendCancellableCoroutine { continuation ->
+        }
+    }
 }

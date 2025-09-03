@@ -31,4 +31,13 @@ class AuthRepositoryImpl @Inject constructor(
         return remoteDataSource.loginWithEmail(countryCode, email, password)
     }
 
+    override suspend fun verifyCode(
+        email: String,
+        countryCode: String,
+        verificationCode: String
+    ): Result<Boolean> {
+        return remoteDataSource.verifyCode(email, countryCode, verificationCode)
+    }
+
+
 }
