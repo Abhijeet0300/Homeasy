@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_login.di
+package io.homeasy.app.feature_login_register.di
 
 import com.thingclips.smart.home.sdk.ThingHomeSdk
 import com.thingclips.smart.sdk.api.IThingUser

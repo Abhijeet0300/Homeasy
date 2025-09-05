@@ -1,46 +1,53 @@
-package io.homeasy.app.feature_login.presentation
+package io.homeasy.app.feature_login_register.presentation
 
+import android.util.Log
+import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import io.homeasy.app.core.utils.ui_components.LoginRegisterScreenTitle
 import io.homeasy.app.R
 import io.homeasy.app.core.utils.ui_components.AppTextField
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import io.homeasy.app.core.utils.ui.theme.AppTypography
+import io.homeasy.app.core.utils.ui.theme.Dark
 import io.homeasy.app.core.utils.ui_components.HasAccount
-import io.homeasy.app.core.utils.ui_components.LoginRegisterScreenTitle
 import io.homeasy.app.core.utils.ui_components.Or
 import io.homeasy.app.core.utils.ui_components.RegularButton
 import io.homeasy.app.core.utils.ui_components.SocialMediaLogin
-import io.homeasy.app.core.utils.validateEmailAndPassword
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
+import io.homeasy.app.feature_login_register.data.User
 
 
 @Composable
-fun RegisterScreen(
-    modifier: Modifier = Modifier,
-    navController: NavController,
-    viewModel : RegisterViewModel = hiltViewModel(),
-    toOtpScreen : () -> Unit = {}
+fun LoginScreen(
+    loginViewModel: LoginViewModel,
+    toRegisterScreen : () -> Unit = {},
+    toHomeScreen : () -> Unit = {},
+    userViewModel: UserViewModel
 ) {
+
     var emailAddress = remember {
         mutableStateOf("")
     }
@@ -49,13 +56,25 @@ fun RegisterScreen(
         mutableStateOf("")
     }
 
-    var confirmPassword = remember {
-        mutableStateOf("")
-    }
+    val context = LocalContext.current
+
     var screenHeight = LocalConfiguration.current.screenHeightDp.dp
 
-    val  emailVM by viewModel.email.collectAsState()
-    val passwordVM by viewModel.password.collectAsState()
+    val user by loginViewModel.user.collectAsState()
+    val loginMessage by loginViewModel.loginMessage.collectAsState()
+    val isLoginSuccessful by loginViewModel.isSLoginSuccessful.collectAsState()
+
+    LaunchedEffect(isLoginSuccessful) {
+        if(isLoginSuccessful) {
+            user?.let {
+                userViewModel.setCurrentUser(user = it)
+                Toast.makeText(context, "$loginMessage", Toast.LENGTH_SHORT).show()
+                toHomeScreen()
+            }
+        } else {
+            Toast.makeText(context, "$loginMessage", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
@@ -103,55 +122,42 @@ fun RegisterScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(15.dp ))
-
-        //Confirm Password field
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
+        //Forgot password
+        Spacer(modifier = Modifier.height(5.dp))
+        Row (
+            modifier = Modifier.width(327.dp),
+            horizontalArrangement = Arrangement.End
         ) {
-            AppTextField(
-                value = confirmPassword,
-                label = stringResource(id = R.string.confirm_password),
-                placeholder = stringResource(id = R.string.enter_confirm_password),
-                isPasswordField = true
+            Text(
+                text = stringResource(id = R.string.forgot_password),
+                style = AppTypography.bodyMedium,
+                color = Dark
             )
         }
-        
-        //Spacer
-        Spacer(modifier = Modifier.height(15.dp ))
 
-        // terms and conditions
-        HasAccount(
-            questionTextId = R.string.i_agree,
-            actionTextId = R.string.terms_and_conditions
-        )
-
-        Spacer(modifier = Modifier.height(15.dp ))
+        Spacer(modifier = Modifier.height(42.dp))
 
         RegularButton(
-            label = stringResource(id = R.string.register),
+            label = stringResource(id = R.string.login),
             onClick = {
-                viewModel.setEmail(emailAddress.value)
-                viewModel.setPassword(password.value)
-                viewModel.sendVerificationCode()
-                toOtpScreen()
-            },
-            enabled = validateEmailAndPassword(email = emailAddress.value, password = password.value),
+                loginViewModel.loginWithEmail(email = emailAddress.value, password = password.value)
+                Log.i("LoginScreen", "User after login: $loginMessage")
+            }
         )
+        Spacer(modifier = Modifier.height(18.dp))
 
-        Spacer(modifier = Modifier.height(15.dp ))
-
+        //Or
         Or()
 
-        Spacer(modifier = Modifier.height(15.dp ))
+        Spacer(modifier = Modifier.height(20.dp))
 
+        //facebook login
         SocialMediaLogin(
             logoId = R.drawable.facebook_logo,
             textId = R.string.login_with_facebook
         ) {}
 
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         //Google login
         SocialMediaLogin(
@@ -159,13 +165,16 @@ fun RegisterScreen(
             textId = R.string.login_with_google
         ){}
 
-        Spacer(modifier = Modifier.height(screenHeight * 0.1f))
+
+        Spacer(modifier = Modifier.height(screenHeight * 0.2f))
 
         HasAccount(
-            questionTextId = R.string.already_have_an_account,
-            actionTextId = R.string.login
+            questionTextId = R.string.no_account,
+            actionTextId = R.string.register,
+            action = {
+                toRegisterScreen()
+            }
         )
-
         Spacer(modifier = Modifier.height(20.dp) )
     }
 }

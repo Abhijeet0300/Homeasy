@@ -1,12 +1,12 @@
-package io.homeasy.app.feature_login.presentation
+package io.homeasy.app.feature_login_register.presentation
 
 import androidx.lifecycle.ViewModel
 import com.thingclips.smart.sdk.api.IThingUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.homeasy.app.feature_login.data.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
+import com.thingclips.smart.android.user.bean.User
 
 @HiltViewModel
 class UserViewModel @Inject constructor(

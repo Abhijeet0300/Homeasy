@@ -1,11 +1,11 @@
-package io.homeasy.app.feature_login.presentation
+package io.homeasy.app.feature_login_register.presentation
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thingclips.smart.android.user.bean.User
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.homeasy.app.feature_login.data.AuthRepositoryImpl
+import io.homeasy.app.feature_login_register.data.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

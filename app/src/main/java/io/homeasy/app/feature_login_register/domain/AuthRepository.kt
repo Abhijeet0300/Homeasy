@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_login.domain
+package io.homeasy.app.feature_login_register.domain
 
 import com.thingclips.smart.android.user.bean.User
 

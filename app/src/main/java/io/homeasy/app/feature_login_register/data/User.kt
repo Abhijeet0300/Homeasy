@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_login.data
+package io.homeasy.app.feature_login_register.data
 
 data class User (
     val id : String,

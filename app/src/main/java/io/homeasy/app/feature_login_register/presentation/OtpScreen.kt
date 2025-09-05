@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_login.presentation
+package io.homeasy.app.feature_login_register.presentation
 
 import android.util.Log
 import android.widget.Toast
@@ -19,7 +19,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -36,16 +35,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import io.homeasy.app.core.utils.ui_components.LoginRegisterScreenTitle
 import io.homeasy.app.R
-import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.utils.ui.theme.AppTypography
 import io.homeasy.app.core.utils.ui.theme.Black
 import io.homeasy.app.core.utils.ui_components.RegularButton
@@ -55,8 +49,9 @@ import kotlinx.coroutines.delay
 fun OtpScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    onOtpVerified: () -> Unit = {},
-    registerViewModel: RegisterViewModel = hiltViewModel(navController.getBackStackEntry(AppRoutes.REGISTER_SCREEN))
+    toUserDetailsScreen: () -> Unit = {},
+    registerViewModel: RegisterViewModel,
+    userViewModel: UserViewModel
 ) {
     var screenHeight = LocalConfiguration.current.screenHeightDp.dp
     var otpValue by remember { mutableStateOf("") }
@@ -69,6 +64,7 @@ fun OtpScreen(
     val isValidOtp by registerViewModel.isValidOtp.collectAsState()
     val otpVerificationMessage by registerViewModel.otpVerificationMessage.collectAsState()
     val context = LocalContext.current
+    val user by registerViewModel.user.collectAsState()
 
     LaunchedEffect(Unit) {
         // A small delay can sometimes help ensure the UI is fully ready
@@ -86,8 +82,13 @@ fun OtpScreen(
                 password = password,
                 verificationCode = otpValue
             )
+
+            user?.let {
+                userViewModel.setCurrentUser(user = it)
+            }
+
             Toast.makeText(context, "$registrationMessage", Toast.LENGTH_SHORT).show()
-            onOtpVerified()
+            toUserDetailsScreen()
         } else if (isValidOtp == false) {
             Log.e("OtpScreen", otpVerificationMessage ?: "OTP is invalid")
         }

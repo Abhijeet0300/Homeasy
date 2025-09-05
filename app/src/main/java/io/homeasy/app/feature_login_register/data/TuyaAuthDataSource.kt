@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_login.data
+package io.homeasy.app.feature_login_register.data
 
 import com.thingclips.smart.android.user.api.ILoginCallback
 import com.thingclips.smart.android.user.api.IRegisterCallback

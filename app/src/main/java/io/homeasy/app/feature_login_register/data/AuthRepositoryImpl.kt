@@ -1,7 +1,7 @@
-package io.homeasy.app.feature_login.data
+package io.homeasy.app.feature_login_register.data
 
 import com.thingclips.smart.android.user.bean.User
-import io.homeasy.app.feature_login.domain.AuthRepository
+import io.homeasy.app.feature_login_register.domain.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
