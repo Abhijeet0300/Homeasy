@@ -95,9 +95,4 @@ class TuyaAuthDataSource @Inject constructor(
             )
         }
     }
-
-    suspend fun setUserDetails() {
-        return suspendCancellableCoroutine { continuation ->
-        }
-    }
 }

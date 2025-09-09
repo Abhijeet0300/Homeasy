@@ -7,4 +7,6 @@ object AppRoutes {
     const val OTP_SCREEN = "otp"
     const val HOME_SCREEN = "home"
     const val USER_DETAILS_SCREEN = "user_details"
+    const val ADD_HOME = "add_home"
+    const val USER_HOME = "user_home"
 }

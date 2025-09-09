@@ -43,6 +43,8 @@
     <string name="good_evening">Good Evening</string>
     <string name="good_morning">Good Morning</string>
     <string name="good_afternoon">Good Afternoon</string>
+    <string name="enter_home_name">Enter home name</string>
+    <string name="enter_geo_name">Enter geo name</string>
 
     //content description for accessibility
     <string name="or">Or</string>

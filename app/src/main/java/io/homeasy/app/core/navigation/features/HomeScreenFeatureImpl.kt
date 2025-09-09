@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.navigation.FeatureApi
 import io.homeasy.app.feature_home.presentation.HomeScreen
+import io.homeasy.app.feature_home.presentation.HomeViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
 
 class HomeScreenFeatureImpl : FeatureApi {
@@ -19,6 +20,7 @@ class HomeScreenFeatureImpl : FeatureApi {
             HomeScreen(
                 navController = navController,
                 userViewModel = viewModelsMap["user_view_model"] as UserViewModel,
+                homeViewModel = viewModelsMap["home_view_model"] as HomeViewModel,
                 toUserDetailsScreen = {
                     navController.navigate(route = AppRoutes.USER_DETAILS_SCREEN) {
                         launchSingleTop = true
