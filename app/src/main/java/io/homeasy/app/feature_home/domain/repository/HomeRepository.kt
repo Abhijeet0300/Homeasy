@@ -1,6 +1,7 @@
 package io.homeasy.app.feature_home.domain.repository
 
 import com.thingclips.smart.home.sdk.bean.HomeBean
+import com.thingclips.smart.home.sdk.bean.RoomBean
 import io.homeasy.app.feature_home.domain.model.HomeChangeEvent
 import kotlinx.coroutines.flow.Flow
 
@@ -16,4 +17,8 @@ interface HomeRepository {
     suspend fun queryHomeList() : Result<List<HomeBean?>?>
 
     suspend fun observeHomeChanges() : Flow<HomeChangeEvent>
+
+    suspend fun addRoom(homeId : Long, name : String) : Result<RoomBean?>
+
+    suspend fun getRoomList(homeId : Long) : Result<List<RoomBean?>?>
 }

@@ -31,6 +31,7 @@ import io.homeasy.app.core.navigation.features.UserHomeFeatureImpl
 import io.homeasy.app.core.utils.ui.theme.White
 import io.homeasy.app.core.utils.ui_components.HomeScreenAppBar
 import io.homeasy.app.feature_home.presentation.HomeViewModel
+import io.homeasy.app.feature_home.presentation.UserHomeViewModel
 import io.homeasy.app.feature_login_register.presentation.LoginViewModel
 import io.homeasy.app.feature_login_register.presentation.RegisterViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
@@ -45,12 +46,14 @@ fun AppNavigation(
     val registerViewModel : RegisterViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val loginViewModel : LoginViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val homeViewModel : HomeViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val userHomeViewModel : UserHomeViewModel = hiltViewModel(activity as ViewModelStoreOwner)
 
     val viewModelsMap = mapOf<String, ViewModel>(
         "user_view_model" to userViewModel,
         "register_view_model" to registerViewModel,
         "login_view_model" to loginViewModel,
-        "home_view_model" to homeViewModel
+        "home_view_model" to homeViewModel,
+        "user_home_view_model" to userHomeViewModel
     )
 
     val featureApis : List<FeatureApi> = listOf(
@@ -60,10 +63,7 @@ fun AppNavigation(
         UserDetailsFeatureImpl(),
         HomeScreenFeatureImpl(),
         AddHomeFeatureImpl(),
-        UserHomeFeatureImpl()
-
-
-
+        UserHomeFeatureImpl(),
 
     )
 
@@ -75,6 +75,10 @@ fun AppNavigation(
         topBar = {
             when(navController.currentBackStackEntryAsState().value?.destination?.route) {
                 "home" -> HomeScreenAppBar(
+                    userViewModel = viewModelsMap["user_view_model"] as UserViewModel
+                )
+
+                "user_home" -> HomeScreenAppBar(
                     userViewModel = viewModelsMap["user_view_model"] as UserViewModel
                 )
             }

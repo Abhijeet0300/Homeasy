@@ -1,0 +1,27 @@
+package io.homeasy.app.feature_room.data
+
+import com.thingclips.smart.home.sdk.ThingHomeSdk
+import com.thingclips.smart.home.sdk.bean.RoomBean
+import com.thingclips.smart.home.sdk.callback.IThingRoomResultCallback
+import io.homeasy.app.feature_room.domain.repository.RoomRepository
+import kotlinx.coroutines.suspendCancellableCoroutine
+import javax.inject.Inject
+import kotlin.coroutines.resumeWithException
+
+class RoomRepositoryImpl @Inject constructor() : RoomRepository {
+    override suspend fun addRoom(homeId: Long, name : String): Result<RoomBean?> {
+        return suspendCancellableCoroutine { continuation->
+            ThingHomeSdk.newHomeInstance(homeId).addRoom(name, object : IThingRoomResultCallback{
+                override fun onSuccess(bean: RoomBean?) {
+                    continuation.resume(Result.success(bean), null)
+                }
+
+                override fun onError(errorCode: String?, errorMsg: String?) {
+                    continuation.resumeWithException(Exception("$errorCode $errorMsg"))
+                }
+
+            })
+        }
+    }
+
+}

@@ -4,8 +4,10 @@ import com.thingclips.smart.home.sdk.ThingHomeSdk
 import com.thingclips.smart.home.sdk.api.IThingHomeChangeListener
 import com.thingclips.smart.home.sdk.api.IThingHomeManager
 import com.thingclips.smart.home.sdk.bean.HomeBean
+import com.thingclips.smart.home.sdk.bean.RoomBean
 import com.thingclips.smart.home.sdk.callback.IThingGetHomeListCallback
 import com.thingclips.smart.home.sdk.callback.IThingHomeResultCallback
+import com.thingclips.smart.home.sdk.callback.IThingRoomResultCallback
 import com.thingclips.smart.sdk.bean.DeviceBean
 import com.thingclips.smart.sdk.bean.GroupBean
 import io.homeasy.app.feature_home.domain.model.HomeChangeEvent
@@ -15,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
+import kotlin.coroutines.resumeWithException
 
 class HomeRepositoryImpl @Inject constructor(
     private val homeManagerInstance : IThingHomeManager
@@ -99,5 +102,26 @@ class HomeRepositoryImpl @Inject constructor(
         }
         homeManagerInstance.registerThingHomeChangeListener(listener)
         awaitClose { homeManagerInstance.unRegisterThingHomeChangeListener(listener) }
+    }
+
+    override suspend fun addRoom(homeId: Long, name : String): Result<RoomBean?> {
+        return suspendCancellableCoroutine { continuation->
+            ThingHomeSdk.newHomeInstance(homeId).addRoom(name, object : IThingRoomResultCallback{
+                override fun onSuccess(bean: RoomBean?) {
+                    continuation.resume(Result.success(bean), null)
+                }
+
+                override fun onError(errorCode: String?, errorMsg: String?) {
+                    continuation.resumeWithException(Exception("$errorCode $errorMsg"))
+                }
+
+            })
+        }
+    }
+
+    override suspend fun getRoomList(homeId: Long): Result<List<RoomBean?>?> {
+        return suspendCancellableCoroutine { continuation ->
+
+        }
     }
 }

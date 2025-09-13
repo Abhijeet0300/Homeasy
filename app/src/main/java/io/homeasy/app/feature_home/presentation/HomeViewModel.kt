@@ -1,11 +1,20 @@
 package io.homeasy.app.feature_home.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.thingclips.smart.home.sdk.ThingHomeSdk
+import com.thingclips.smart.home.sdk.api.IThingHomeManager
 import com.thingclips.smart.home.sdk.bean.HomeBean
+import com.thingclips.smart.home.sdk.bean.RoomBean
+import com.thingclips.smart.home.sdk.callback.IThingHomeResultCallback
+import com.thingclips.smart.sdk.api.IThingUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.homeasy.app.feature_home.data.HomeRepositoryImpl
 import io.homeasy.app.feature_home.domain.model.HomeChangeEvent
+import io.homeasy.app.feature_home.domain.usecase.AddRoomUseCase
+import io.homeasy.app.feature_home.domain.usecase.ObserveHomeChangeListenerUseCase
+import io.homeasy.app.feature_home.domain.usecase.QueryHomeListUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -15,7 +24,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeRepositoryImpl: HomeRepositoryImpl
+    private val homeRepositoryImpl: HomeRepositoryImpl,
+    private val addRoomUseCase: AddRoomUseCase,
+    private val observeHomeChangeListenerUseCase: ObserveHomeChangeListenerUseCase,
+    private val queryHomeListUseCase: QueryHomeListUseCase
 ) : ViewModel() {
     private val _homeBean = MutableStateFlow<HomeBean?>(null)
     val homeBean = _homeBean.asStateFlow()
@@ -35,14 +47,31 @@ class HomeViewModel @Inject constructor(
     private val _selectedHome = MutableStateFlow<HomeBean?>(null)
     val selectedHome = _selectedHome.asStateFlow()
 
+    private val _roomAddedMessage = MutableStateFlow<String>("")
+    val roomAddedMessage = _roomAddedMessage.asStateFlow()
+
+    private val _isRoomAdded = MutableStateFlow<Boolean?>(null)
+    val isRoomAdded = _isRoomAdded.asStateFlow()
+
+    private val _roomList = MutableStateFlow<List<RoomBean?>?>(emptyList())
+    val roomList = _roomList.asStateFlow()
+
     init {
+        observeHomeChanges()
+    }
+
+    private fun observeHomeChanges() {
         viewModelScope.launch {
-            homeRepositoryImpl.observeHomeChanges().collect { event ->
-                _homeEvents.emit(event)
+            observeHomeChangeListenerUseCase().collect { event->
+                when(event) {
+                    is HomeChangeEvent.HomeInfoChanged -> getHomeDetails(event.homeId)
+                    else -> Unit
+                }
             }
         }
     }
 
+    //Create Home
     fun createHome(
         name : String,
         lon : Double = 0.0,
@@ -63,9 +92,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    //Query Room List
     fun queryHomeList() {
         viewModelScope.launch {
-            homeRepositoryImpl.queryHomeList()
+            queryHomeListUseCase()
                 .onSuccess { homeList ->
                     _homeList.value = homeList
                 }
@@ -75,9 +105,43 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun setSelectedHome(homeBean : HomeBean) {
+    //Add Room
+    fun addRoom(homeId : Long, name: String) {
         viewModelScope.launch {
-            _selectedHome.value = homeBean
+            addRoomUseCase(homeId, name)
+                .onSuccess { roomBean->
+                    _roomAddedMessage.value = "${roomBean?.name} is successfully added."
+                    _isRoomAdded.value = true
+                }
+                .onFailure {
+                    _roomAddedMessage.value = "Failed to add room."
+                }
         }
+    }
+
+    //Set selected home
+    fun setSelectedHome(homeBean : HomeBean?) {
+        _selectedHome.value = homeBean
+    }
+
+    fun setIsRoomAddedToNull() {
+        _isRoomAdded.value = null
+        _roomAddedMessage.value = ""
+    }
+
+    fun getHomeDetails(homeId: Long)  {
+        ThingHomeSdk.newHomeInstance(homeId).getHomeDetail(object : IThingHomeResultCallback {
+            override fun onSuccess(bean: HomeBean?) {
+                _selectedHome.value = bean
+            }
+
+            override fun onError(errorCode: String?, errorMsg: String?) {
+                Log.e("HomeViewModel", "Error code: $errorCode, error: $errorMsg")
+            }
+        })
+    }
+
+    fun getRoomListOfSelectedHome(){
+        _roomList.value = _selectedHome.value?.rooms
     }
 }
