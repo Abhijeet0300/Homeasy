@@ -10,6 +10,7 @@ import io.homeasy.app.feature_home.data.HomeRepositoryImpl
 import io.homeasy.app.feature_home.domain.repository.HomeRepository
 import io.homeasy.app.feature_home.domain.usecase.AddRoomUseCase
 import io.homeasy.app.feature_home.domain.usecase.CreateHomeUseCase
+import io.homeasy.app.feature_home.domain.usecase.GetRoomListUseCase
 import io.homeasy.app.feature_home.domain.usecase.QueryHomeListUseCase
 import javax.inject.Singleton
 
@@ -43,4 +44,9 @@ object HomeManagerModule {
     fun provideQueryHomeListUseCase(
         homeRepository: HomeRepository
     ) : QueryHomeListUseCase = QueryHomeListUseCase(homeRepository = homeRepository)
+
+    @Provides
+    fun provideGetRoomListUseCase(
+        homeRepository: HomeRepository
+    ) : GetRoomListUseCase = GetRoomListUseCase(homeRepository = homeRepository)
 }

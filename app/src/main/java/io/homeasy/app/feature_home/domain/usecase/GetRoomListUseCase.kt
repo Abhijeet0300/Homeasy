@@ -1,0 +1,13 @@
+package io.homeasy.app.feature_home.domain.usecase
+
+import com.thingclips.smart.home.sdk.bean.RoomBean
+import io.homeasy.app.feature_home.domain.repository.HomeRepository
+import javax.inject.Inject
+
+class GetRoomListUseCase @Inject constructor(
+    private val homeRepository: HomeRepository
+) {
+    suspend operator fun invoke(homeId : Long) : Result<List<RoomBean?>?>{
+        return homeRepository.getRoomList(homeId)
+    }
+}

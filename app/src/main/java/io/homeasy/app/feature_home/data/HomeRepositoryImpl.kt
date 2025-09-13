@@ -121,7 +121,19 @@ class HomeRepositoryImpl @Inject constructor(
 
     override suspend fun getRoomList(homeId: Long): Result<List<RoomBean?>?> {
         return suspendCancellableCoroutine { continuation ->
+            ThingHomeSdk.newHomeInstance(homeId).getHomeDetail(object : IThingHomeResultCallback {
+                override fun onSuccess(bean: HomeBean?) {
+                    val roomList = bean?.rooms
+                    continuation.resume(Result.success(roomList), null)
+                }
 
+                override fun onError(errorCode: String?, errorMsg: String?) {
+                    continuation.resume(
+                        Result.failure(Exception("Error code: $errorCode, error: $errorMsg")),
+                        onCancellation = null
+                    )
+                }
+            })
         }
     }
 }

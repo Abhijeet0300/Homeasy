@@ -4,15 +4,14 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thingclips.smart.home.sdk.ThingHomeSdk
-import com.thingclips.smart.home.sdk.api.IThingHomeManager
 import com.thingclips.smart.home.sdk.bean.HomeBean
 import com.thingclips.smart.home.sdk.bean.RoomBean
 import com.thingclips.smart.home.sdk.callback.IThingHomeResultCallback
-import com.thingclips.smart.sdk.api.IThingUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.homeasy.app.feature_home.data.HomeRepositoryImpl
 import io.homeasy.app.feature_home.domain.model.HomeChangeEvent
 import io.homeasy.app.feature_home.domain.usecase.AddRoomUseCase
+import io.homeasy.app.feature_home.domain.usecase.GetRoomListUseCase
 import io.homeasy.app.feature_home.domain.usecase.ObserveHomeChangeListenerUseCase
 import io.homeasy.app.feature_home.domain.usecase.QueryHomeListUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -27,7 +26,8 @@ class HomeViewModel @Inject constructor(
     private val homeRepositoryImpl: HomeRepositoryImpl,
     private val addRoomUseCase: AddRoomUseCase,
     private val observeHomeChangeListenerUseCase: ObserveHomeChangeListenerUseCase,
-    private val queryHomeListUseCase: QueryHomeListUseCase
+    private val queryHomeListUseCase: QueryHomeListUseCase,
+    private val getRoomListUseCase: GetRoomListUseCase
 ) : ViewModel() {
     private val _homeBean = MutableStateFlow<HomeBean?>(null)
     val homeBean = _homeBean.asStateFlow()
@@ -55,6 +55,9 @@ class HomeViewModel @Inject constructor(
 
     private val _roomList = MutableStateFlow<List<RoomBean?>?>(emptyList())
     val roomList = _roomList.asStateFlow()
+
+    private val _isRoomListFetched = MutableStateFlow<Boolean?>(null)
+    val isRoomListFetched = _isRoomListFetched.asStateFlow()
 
     init {
         observeHomeChanges()
@@ -141,7 +144,21 @@ class HomeViewModel @Inject constructor(
         })
     }
 
-    fun getRoomListOfSelectedHome(){
+    fun updateRoomListOfSelectedHome(){
         _roomList.value = _selectedHome.value?.rooms
+    }
+
+    fun roomListOfSelectedHome(homeId : Long) {
+        viewModelScope.launch {
+            getRoomListUseCase(homeId)
+                .onSuccess{ rooms->
+                    _roomList.value = rooms
+                    _isRoomListFetched.value = true
+                }
+                .onFailure {
+                    _roomList.value = emptyList()
+                    _isRoomListFetched.value = false
+                }
+        }
     }
 }
