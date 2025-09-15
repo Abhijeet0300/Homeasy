@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import io.homeasy.app.core.utils.ui.theme.White
 import io.homeasy.app.core.utils.ui_components.RegularButton
 import io.homeasy.app.core.utils.ui_components.showRoomNames
+import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
+import io.homeasy.app.feature_home.presentation.viewmodel.UserHomeViewModel
 
 @Composable
 fun UserHome(
@@ -89,7 +91,5 @@ fun UserHome(
                 }
             }
         }
-
-
     }
 }

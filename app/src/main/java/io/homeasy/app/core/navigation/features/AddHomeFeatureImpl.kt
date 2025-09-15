@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.navigation.FeatureApi
 import io.homeasy.app.feature_home.presentation.AddHome
-import io.homeasy.app.feature_home.presentation.HomeViewModel
+import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 
 class AddHomeFeatureImpl : FeatureApi {
     override fun registerGraph(

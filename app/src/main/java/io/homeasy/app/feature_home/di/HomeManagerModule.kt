@@ -6,7 +6,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.homeasy.app.feature_home.data.DevicePairingRepositoryImpl
 import io.homeasy.app.feature_home.data.HomeRepositoryImpl
+import io.homeasy.app.feature_home.domain.repository.DevicePairingRepository
 import io.homeasy.app.feature_home.domain.repository.HomeRepository
 import io.homeasy.app.feature_home.domain.usecase.AddRoomUseCase
 import io.homeasy.app.feature_home.domain.usecase.CreateHomeUseCase
@@ -49,4 +51,10 @@ object HomeManagerModule {
     fun provideGetRoomListUseCase(
         homeRepository: HomeRepository
     ) : GetRoomListUseCase = GetRoomListUseCase(homeRepository = homeRepository)
+
+    @Provides
+    @Singleton
+    fun provideDevicePairingRepositoryInstance(
+        homeManagerInstance : IThingHomeManager
+    ) : DevicePairingRepository = DevicePairingRepositoryImpl(homeManagerInstance)
 }

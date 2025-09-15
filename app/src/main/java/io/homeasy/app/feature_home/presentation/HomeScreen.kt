@@ -18,6 +18,7 @@ import io.homeasy.app.feature_login_register.presentation.UserViewModel
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
+import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 
 
 @Composable

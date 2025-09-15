@@ -30,8 +30,8 @@ import io.homeasy.app.core.navigation.features.UserDetailsFeatureImpl
 import io.homeasy.app.core.navigation.features.UserHomeFeatureImpl
 import io.homeasy.app.core.utils.ui.theme.White
 import io.homeasy.app.core.utils.ui_components.HomeScreenAppBar
-import io.homeasy.app.feature_home.presentation.HomeViewModel
-import io.homeasy.app.feature_home.presentation.UserHomeViewModel
+import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
+import io.homeasy.app.feature_home.presentation.viewmodel.UserHomeViewModel
 import io.homeasy.app.feature_login_register.presentation.LoginViewModel
 import io.homeasy.app.feature_login_register.presentation.RegisterViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel

@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_home.presentation
+package io.homeasy.app.feature_home.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.thingclips.smart.home.sdk.bean.HomeBean

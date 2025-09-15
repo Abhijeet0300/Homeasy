@@ -30,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
+import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 
 
 @Composable

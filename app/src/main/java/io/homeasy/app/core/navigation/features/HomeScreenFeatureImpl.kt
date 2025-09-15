@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.navigation.FeatureApi
 import io.homeasy.app.feature_home.presentation.HomeScreen
-import io.homeasy.app.feature_home.presentation.HomeViewModel
+import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
 
 class HomeScreenFeatureImpl : FeatureApi {
