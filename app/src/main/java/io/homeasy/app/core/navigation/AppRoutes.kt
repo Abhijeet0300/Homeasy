@@ -9,4 +9,7 @@ object AppRoutes {
     const val USER_DETAILS_SCREEN = "user_details"
     const val ADD_HOME = "add_home"
     const val USER_HOME = "user_home"
+    const val SCAN_DEVICES = "scan_devices"
+    const val CHECKING_PERMISSIONS = "checking_permissions"
+    const val WIFI_INFO = "wifi_info"
 }

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStoreOwner
@@ -30,11 +31,17 @@ import io.homeasy.app.core.navigation.features.UserDetailsFeatureImpl
 import io.homeasy.app.core.navigation.features.UserHomeFeatureImpl
 import io.homeasy.app.core.utils.ui.theme.White
 import io.homeasy.app.core.utils.ui_components.HomeScreenAppBar
+import io.homeasy.app.feature_devices.presentation.viewmodel.ScanDevicesBleViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.UserHomeViewModel
 import io.homeasy.app.feature_login_register.presentation.LoginViewModel
 import io.homeasy.app.feature_login_register.presentation.RegisterViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
+import io.homeasy.app.R
+import io.homeasy.app.core.navigation.features.CheckingPermissionsFeatureImpl
+import io.homeasy.app.core.navigation.features.ScanDevicesBleFeatureImpl
+import io.homeasy.app.core.navigation.features.WifiInfoScreenFeatureImpl
+import io.homeasy.app.feature_devices.presentation.viewmodel.EZConnectViewModel
 
 @Composable
 fun AppNavigation(
@@ -47,13 +54,17 @@ fun AppNavigation(
     val loginViewModel : LoginViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val homeViewModel : HomeViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val userHomeViewModel : UserHomeViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val scanDevicesBleViewModel : ScanDevicesBleViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val ezConnectViewModel : EZConnectViewModel = hiltViewModel(activity as ViewModelStoreOwner)
 
     val viewModelsMap = mapOf<String, ViewModel>(
         "user_view_model" to userViewModel,
         "register_view_model" to registerViewModel,
         "login_view_model" to loginViewModel,
         "home_view_model" to homeViewModel,
-        "user_home_view_model" to userHomeViewModel
+        "user_home_view_model" to userHomeViewModel,
+        stringResource(id = R.string.scan_devices_ble_view_model) to scanDevicesBleViewModel,
+        stringResource(id = R.string.ez_connect_view_model) to ezConnectViewModel
     )
 
     val featureApis : List<FeatureApi> = listOf(
@@ -64,7 +75,9 @@ fun AppNavigation(
         HomeScreenFeatureImpl(),
         AddHomeFeatureImpl(),
         UserHomeFeatureImpl(),
-
+        ScanDevicesBleFeatureImpl(),
+        CheckingPermissionsFeatureImpl(),
+        WifiInfoScreenFeatureImpl()
     )
 
 

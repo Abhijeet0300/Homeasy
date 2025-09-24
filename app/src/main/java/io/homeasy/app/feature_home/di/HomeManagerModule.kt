@@ -1,10 +1,12 @@
 package io.homeasy.app.feature_home.di
 
+import android.content.Context
 import com.thingclips.smart.home.sdk.ThingHomeSdk
 import com.thingclips.smart.home.sdk.api.IThingHomeManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.homeasy.app.feature_home.data.DevicePairingRepositoryImpl
 import io.homeasy.app.feature_home.data.HomeRepositoryImpl
@@ -12,8 +14,10 @@ import io.homeasy.app.feature_home.domain.repository.DevicePairingRepository
 import io.homeasy.app.feature_home.domain.repository.HomeRepository
 import io.homeasy.app.feature_home.domain.usecase.AddRoomUseCase
 import io.homeasy.app.feature_home.domain.usecase.CreateHomeUseCase
+import io.homeasy.app.feature_home.domain.usecase.GetActivatorTokenUseCase
 import io.homeasy.app.feature_home.domain.usecase.GetRoomListUseCase
 import io.homeasy.app.feature_home.domain.usecase.QueryHomeListUseCase
+import io.homeasy.app.feature_home.domain.usecase.StartEZPairingUseCase
 import javax.inject.Singleton
 
 @Module
@@ -55,6 +59,17 @@ object HomeManagerModule {
     @Provides
     @Singleton
     fun provideDevicePairingRepositoryInstance(
-        homeManagerInstance : IThingHomeManager
-    ) : DevicePairingRepository = DevicePairingRepositoryImpl(homeManagerInstance)
+        homeManagerInstance : IThingHomeManager,
+        @ApplicationContext context : Context
+    ) : DevicePairingRepository = DevicePairingRepositoryImpl(homeManagerInstance, context)
+
+    @Provides
+    fun provideStartEZPairingUseCase(
+        repo : DevicePairingRepository
+    ) : StartEZPairingUseCase = StartEZPairingUseCase(repo = repo)
+
+    @Provides
+    fun provideGetActivatorTokenUseCase(
+        repo : DevicePairingRepository
+    ) : GetActivatorTokenUseCase = GetActivatorTokenUseCase(repo = repo)
 }

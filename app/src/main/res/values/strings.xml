@@ -51,4 +51,15 @@
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="login_with_google">Login with Google</string>
 
+
+    //View Models
+    <string name="scan_devices_ble_view_model">Scan_Devices_Ble_View_Model</string>
+    <string name="ez_connect_view_model">Ez_Connect_View_Model</string>
+
+    //Wifi screen
+    <string name="wifi_name">Wifi Name</string>
+    <string name="wifi_password">Wifi Password</string>
+    <string name="enter_wifi_password">Enter wifi password</string>
+    <string name="wifi_connect">Connect</string>
+
 </resources>

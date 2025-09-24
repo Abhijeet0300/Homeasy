@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.utils.ui.theme.White
 import io.homeasy.app.core.utils.ui_components.RegularButton
 import io.homeasy.app.core.utils.ui_components.showRoomNames
@@ -77,7 +79,7 @@ fun UserHome(
             Spacer(modifier = Modifier.fillMaxWidth().height(0.dp))
         }
 
-        item{
+        item {
             if(roomList!!.isEmpty()) {
                 Toast.makeText(context, "No room", Toast.LENGTH_SHORT).show()
             } else {
@@ -89,6 +91,18 @@ fun UserHome(
                         showRoomNames(roomBean = roomList!![index]!!)
                     }
                 }
+            }
+        }
+
+        item{
+            Button(
+                onClick = {
+                    navController.navigate(route= AppRoutes.CHECKING_PERMISSIONS)
+                }
+            ) {
+                Text(
+                    text = "Add Devices"
+                )
             }
         }
     }

@@ -20,7 +20,7 @@ import io.homeasy.app.core.utils.ui.theme.ButtonColor
 fun RegularButton(
     label : String = "Next >",
     enabled : Boolean = true,
-    onClick : () -> Unit = {},
+    onClick :  () -> Unit = {},
     buttonWidth : Dp = 327.dp,
     buttonHeight : Dp = 47.dp
 ) {

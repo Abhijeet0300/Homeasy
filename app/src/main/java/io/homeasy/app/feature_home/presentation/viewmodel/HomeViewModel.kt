@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_home.presentation
+package io.homeasy.app.feature_home.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

@@ -104,6 +104,9 @@ dependencies {
     //Navigation compose
     implementation(libs.androidx.navigation.compose)
 
+    //Google accompanist permissions
+    implementation(libs.accompanist.permissions)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
