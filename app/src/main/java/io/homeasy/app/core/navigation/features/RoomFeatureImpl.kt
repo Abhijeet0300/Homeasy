@@ -1,38 +1,29 @@
 package io.homeasy.app.core.navigation.features
 
-import android.util.Log
-import androidx.activity.compose.BackHandler
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.homeasy.app.R
 import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.navigation.FeatureApi
 import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
-import io.homeasy.app.feature_home.presentation.UserHome
-import io.homeasy.app.feature_home.presentation.viewmodel.UserHomeViewModel
+import io.homeasy.app.feature_room.presentation.Room
 import io.homeasy.app.feature_room.presentation.RoomViewModel
+import io.homeasy.app.R
 
-class UserHomeFeatureImpl : FeatureApi {
+class RoomFeatureImpl : FeatureApi {
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavController,
         viewModelsMap: Map<String, ViewModel>
     ) {
-        navGraphBuilder.composable(route = AppRoutes.USER_HOME) {
-            UserHome(
+        navGraphBuilder.composable(route = AppRoutes.ROOM) {
+            Room(
                 navController = navController,
-                homeViewModel = viewModelsMap["home_view_model"] as HomeViewModel,
                 roomViewModel = viewModelsMap[stringResource(id = R.string.room_view_model)] as RoomViewModel,
-                onBackPressed = {
-                    BackHandler {
-                        val homeViewModel = viewModelsMap["home_view_model"] as HomeViewModel
-                        homeViewModel.setSelectedHome(homeBean = null)
-                        Log.i("User home", "Back pressed ${homeViewModel.selectedHome}")
-                    }
-                })
+                homeViewModel = viewModelsMap["home_view_model"] as HomeViewModel
+            )
         }
     }
 

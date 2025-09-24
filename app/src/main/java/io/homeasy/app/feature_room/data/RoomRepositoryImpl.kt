@@ -1,8 +1,11 @@
 package io.homeasy.app.feature_room.data
 
+import android.util.Log
 import com.thingclips.smart.home.sdk.ThingHomeSdk
 import com.thingclips.smart.home.sdk.bean.RoomBean
 import com.thingclips.smart.home.sdk.callback.IThingRoomResultCallback
+import com.thingclips.smart.sdk.api.IResultCallback
+import com.thingclips.smart.sdk.bean.DeviceBean
 import io.homeasy.app.feature_room.domain.repository.RoomRepository
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
@@ -22,6 +25,26 @@ class RoomRepositoryImpl @Inject constructor() : RoomRepository {
 
             })
         }
+
+
     }
+
+    override suspend fun addDevice(roomId: Long, deviceId: String) : Result<Unit> {
+        return suspendCancellableCoroutine { continuation->
+            ThingHomeSdk.newRoomInstance(roomId).addDevice(deviceId, object : IResultCallback {
+                override fun onError(code: String?, error: String?) {
+                    Log.e("RoomRepositoryImpl", "Failed to add device: $code $error")
+                    continuation.resume(Result.failure(Exception("$code : $error")), null)
+                }
+
+                override fun onSuccess() {
+                    Log.i("RoomRepositoryImpl", "Device added successfully to room $roomId")
+                    continuation.resume(Result.success(Unit), null)
+                }
+
+            })
+        }
+    }
+
 
 }

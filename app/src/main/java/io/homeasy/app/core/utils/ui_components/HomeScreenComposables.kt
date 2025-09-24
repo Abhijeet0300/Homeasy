@@ -2,6 +2,7 @@ package io.homeasy.app.core.utils.ui_components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,8 +38,11 @@ import io.homeasy.app.core.utils.ui.theme.White
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
 import com.thingclips.smart.home.sdk.bean.RoomBean
+import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.utils.ui.theme.Black
+import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -109,9 +113,16 @@ fun HomeScreenAppBar(
 
 
 @Composable
-fun showRoomNames(roomBean: RoomBean) {
+fun showRoomNames(roomBean: RoomBean, navController: NavController, roomViewModel: RoomViewModel) {
     Card(
-        modifier = Modifier.height(30.dp).width(100.dp),
+        modifier = Modifier.height(30.dp).width(100.dp).combinedClickable(
+            onClick = {
+
+                navController.navigate(route = AppRoutes.ROOM) {
+                    launchSingleTop = true
+                }
+            }
+        ),
         shape = RoundedCornerShape(size = 16.dp),
         colors = CardDefaults.cardColors(
             containerColor = White

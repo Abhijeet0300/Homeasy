@@ -39,9 +39,11 @@ import io.homeasy.app.feature_login_register.presentation.RegisterViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
 import io.homeasy.app.R
 import io.homeasy.app.core.navigation.features.CheckingPermissionsFeatureImpl
+import io.homeasy.app.core.navigation.features.RoomFeatureImpl
 import io.homeasy.app.core.navigation.features.ScanDevicesBleFeatureImpl
 import io.homeasy.app.core.navigation.features.WifiInfoScreenFeatureImpl
 import io.homeasy.app.feature_devices.presentation.viewmodel.EZConnectViewModel
+import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 @Composable
 fun AppNavigation(
@@ -56,6 +58,8 @@ fun AppNavigation(
     val userHomeViewModel : UserHomeViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val scanDevicesBleViewModel : ScanDevicesBleViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val ezConnectViewModel : EZConnectViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val roomViewModel : RoomViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+
 
     val viewModelsMap = mapOf<String, ViewModel>(
         "user_view_model" to userViewModel,
@@ -64,7 +68,8 @@ fun AppNavigation(
         "home_view_model" to homeViewModel,
         "user_home_view_model" to userHomeViewModel,
         stringResource(id = R.string.scan_devices_ble_view_model) to scanDevicesBleViewModel,
-        stringResource(id = R.string.ez_connect_view_model) to ezConnectViewModel
+        stringResource(id = R.string.ez_connect_view_model) to ezConnectViewModel,
+        stringResource(id = R.string.room_view_model) to roomViewModel
     )
 
     val featureApis : List<FeatureApi> = listOf(
@@ -77,7 +82,8 @@ fun AppNavigation(
         UserHomeFeatureImpl(),
         ScanDevicesBleFeatureImpl(),
         CheckingPermissionsFeatureImpl(),
-        WifiInfoScreenFeatureImpl()
+        WifiInfoScreenFeatureImpl(),
+        RoomFeatureImpl()
     )
 
 

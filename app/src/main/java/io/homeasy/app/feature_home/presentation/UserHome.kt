@@ -26,12 +26,13 @@ import io.homeasy.app.core.utils.ui_components.RegularButton
 import io.homeasy.app.core.utils.ui_components.showRoomNames
 import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.UserHomeViewModel
+import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 @Composable
 fun UserHome(
     navController: NavController,
     homeViewModel: HomeViewModel,
-    userHomeViewModel: UserHomeViewModel,
+    roomViewModel: RoomViewModel,
     onBackPressed : @Composable () -> Unit
 ) {
 
@@ -88,7 +89,11 @@ fun UserHome(
                     horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
                     items(roomList!!.size) { index ->
-                        showRoomNames(roomBean = roomList!![index]!!)
+                        showRoomNames(
+                            roomBean = roomList!![index]!!,
+                            navController = navController,
+                            roomViewModel = roomViewModel
+                        )
                     }
                 }
             }

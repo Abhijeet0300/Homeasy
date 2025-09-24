@@ -12,4 +12,5 @@ object AppRoutes {
     const val SCAN_DEVICES = "scan_devices"
     const val CHECKING_PERMISSIONS = "checking_permissions"
     const val WIFI_INFO = "wifi_info"
+    const val ROOM = "room"
 }
