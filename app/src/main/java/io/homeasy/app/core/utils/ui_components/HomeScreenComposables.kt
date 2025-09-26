@@ -117,7 +117,7 @@ fun showRoomNames(roomBean: RoomBean, navController: NavController, roomViewMode
     Card(
         modifier = Modifier.height(30.dp).width(100.dp).combinedClickable(
             onClick = {
-
+                roomViewModel.setSelectedRoom(roomBean = roomBean)
                 navController.navigate(route = AppRoutes.ROOM) {
                     launchSingleTop = true
                 }

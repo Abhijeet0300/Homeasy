@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import io.homeasy.app.feature_room.data.RoomRepositoryImpl
 import io.homeasy.app.feature_room.domain.repository.RoomRepository
 import io.homeasy.app.feature_room.domain.usecase.AddDeviceToRoomUseCase
+import io.homeasy.app.feature_room.domain.usecase.GetRoomDetailsUseCase
 import javax.inject.Singleton
 
 @Module
@@ -19,4 +20,8 @@ object RoomModule {
     fun provideAddDeviceToRoomUseCase(
         repo : RoomRepository
     ) : AddDeviceToRoomUseCase = AddDeviceToRoomUseCase( repo = repo )
+
+    fun provideGetRoomDetailsUseCase(
+        repo : RoomRepository
+    ) : GetRoomDetailsUseCase = GetRoomDetailsUseCase( roomRepository = repo )
 }

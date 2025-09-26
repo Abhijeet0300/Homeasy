@@ -2,7 +2,9 @@ package io.homeasy.app.feature_room.data
 
 import android.util.Log
 import com.thingclips.smart.home.sdk.ThingHomeSdk
+import com.thingclips.smart.home.sdk.bean.HomeBean
 import com.thingclips.smart.home.sdk.bean.RoomBean
+import com.thingclips.smart.home.sdk.callback.IThingHomeResultCallback
 import com.thingclips.smart.home.sdk.callback.IThingRoomResultCallback
 import com.thingclips.smart.sdk.api.IResultCallback
 import com.thingclips.smart.sdk.bean.DeviceBean
@@ -43,6 +45,30 @@ class RoomRepositoryImpl @Inject constructor() : RoomRepository {
                 }
 
             })
+        }
+    }
+
+    override suspend fun getRoomDetails(
+        homeId: Long,
+        roomId: Long
+    ): Result<RoomBean> {
+        return suspendCancellableCoroutine { continuation ->
+            val home = ThingHomeSdk.newHomeInstance(homeId)
+            home.getHomeDetail(object : IThingHomeResultCallback {
+                override fun onSuccess(bean: HomeBean?) {
+                    val room = bean?.rooms?.find { it.roomId == roomId }
+                    if (room != null) {
+                        continuation.resume(Result.success(room), null)
+                    } else {
+                        continuation.resume(Result.failure(Exception("Room not found")), null)
+                    }
+                }
+
+                override fun onError(errorCode: String?, errorMsg: String?) {
+                    continuation.resume(Result.failure(Exception("$errorCode $errorMsg")), null)
+                }
+            })
+
         }
     }
 

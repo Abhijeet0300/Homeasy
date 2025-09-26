@@ -26,17 +26,20 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import io.homeasy.app.core.utils.ui_components.AppTextField
 import io.homeasy.app.R
+import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.utils.ui_components.RegularButton
 import io.homeasy.app.feature_devices.domain.model.DeviceActivationResult
 import io.homeasy.app.feature_devices.presentation.viewmodel.EZConnectViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
+import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 
 @Composable
 fun WifiInfoScreen(
    navController: NavController,
    viewModel : EZConnectViewModel,
-   homeViewModel: HomeViewModel
+   homeViewModel: HomeViewModel,
+   roomViewModel: RoomViewModel
 ) {
     val context = LocalContext.current
     val isPairing by viewModel.isPairing.collectAsState()
@@ -69,11 +72,14 @@ fun WifiInfoScreen(
                     Log.i("WifiInfoScreen", "Paired: ${result.deviceBean.devId ?: result.deviceBean.name}")
                     Toast.makeText(context, "Paired: ${result.deviceBean.devId ?: result.deviceBean.name}",
                         Toast.LENGTH_SHORT).show()
+                    roomViewModel.setAddedDevice(result.deviceBean)
+                    navController.popBackStack(route = AppRoutes.ROOM, inclusive = false)
                 }
 
                 is DeviceActivationResult.Failure -> {
                     Log.e("WifiInfoScreen", "Error: ${result.errorMessage}")
                     Toast.makeText(context, "Error: ${result.errorMessage}", Toast.LENGTH_SHORT).show()
+                    navController.popBackStack(route = AppRoutes.ROOM, inclusive = false)
                 }
 
                 is DeviceActivationResult.Step -> {

@@ -11,6 +11,7 @@ import io.homeasy.app.feature_devices.presentation.WifiInfoScreen
 import io.homeasy.app.R
 import io.homeasy.app.feature_devices.presentation.viewmodel.EZConnectViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
+import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 class WifiInfoScreenFeatureImpl : FeatureApi {
     override fun registerGraph(
@@ -22,7 +23,8 @@ class WifiInfoScreenFeatureImpl : FeatureApi {
             WifiInfoScreen(
                 navController = navController,
                 viewModel = viewModelsMap[stringResource(id= R.string.ez_connect_view_model)] as EZConnectViewModel,
-                homeViewModel = viewModelsMap["home_view_model"] as HomeViewModel
+                homeViewModel = viewModelsMap["home_view_model"] as HomeViewModel,
+                roomViewModel = viewModelsMap[stringResource(R.string.room_view_model)] as RoomViewModel
             )
         }
     }
