@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_devices.domain.repository
+package io.homeasy.app.feature_connection.domain.repository
 
 import com.thingclips.smart.android.ble.api.ScanDeviceBean
 import kotlinx.coroutines.flow.Flow

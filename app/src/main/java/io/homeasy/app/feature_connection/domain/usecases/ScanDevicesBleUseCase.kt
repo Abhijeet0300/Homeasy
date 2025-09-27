@@ -1,7 +1,7 @@
-package io.homeasy.app.feature_devices.domain.usecases
+package io.homeasy.app.feature_connection.domain.usecases
 
 import com.thingclips.smart.android.ble.api.ScanDeviceBean
-import io.homeasy.app.feature_devices.domain.repository.ScanDevicesBle
+import io.homeasy.app.feature_connection.domain.repository.ScanDevicesBle
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

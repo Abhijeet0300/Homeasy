@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_devices.presentation
+package io.homeasy.app.feature_connection.presentation
 
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,9 +18,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import io.homeasy.app.feature_devices.presentation.viewmodel.ScanDevicesBleViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.ScanDevicesBleViewModel
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import com.thingclips.smart.android.ble.api.ScanDeviceBean
 import io.homeasy.app.core.navigation.AppRoutes

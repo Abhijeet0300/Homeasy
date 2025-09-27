@@ -7,9 +7,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.navigation.FeatureApi
-import io.homeasy.app.feature_devices.presentation.ScanDevices
+import io.homeasy.app.feature_connection.presentation.ScanDevices
 import io.homeasy.app.R
-import io.homeasy.app.feature_devices.presentation.viewmodel.ScanDevicesBleViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.ScanDevicesBleViewModel
 
 class ScanDevicesBleFeatureImpl : FeatureApi {
     override fun registerGraph(

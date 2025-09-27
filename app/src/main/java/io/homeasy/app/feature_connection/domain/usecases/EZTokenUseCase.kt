@@ -1,6 +1,6 @@
-package io.homeasy.app.feature_devices.domain.usecases
+package io.homeasy.app.feature_connection.domain.usecases
 
-import io.homeasy.app.feature_devices.domain.repository.EZConnectRepository
+import io.homeasy.app.feature_connection.domain.repository.EZConnectRepository
 import javax.inject.Inject
 
 class EZTokenUseCase @Inject constructor(

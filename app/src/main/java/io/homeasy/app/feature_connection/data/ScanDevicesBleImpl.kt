@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_devices.data
+package io.homeasy.app.feature_connection.data
 
 import android.content.Context
 import com.thingclips.smart.android.ble.IThingBleOperator
@@ -6,7 +6,7 @@ import com.thingclips.smart.android.ble.api.LeScanSetting
 import com.thingclips.smart.android.ble.api.ScanDeviceBean
 import com.thingclips.smart.android.ble.api.ScanType
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.homeasy.app.feature_devices.domain.repository.ScanDevicesBle
+import io.homeasy.app.feature_connection.domain.repository.ScanDevicesBle
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow

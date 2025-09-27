@@ -1,8 +1,6 @@
 package io.homeasy.app.core.navigation
 
 import android.app.Activity
-import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,9 +10,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
@@ -31,7 +27,7 @@ import io.homeasy.app.core.navigation.features.UserDetailsFeatureImpl
 import io.homeasy.app.core.navigation.features.UserHomeFeatureImpl
 import io.homeasy.app.core.utils.ui.theme.White
 import io.homeasy.app.core.utils.ui_components.HomeScreenAppBar
-import io.homeasy.app.feature_devices.presentation.viewmodel.ScanDevicesBleViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.ScanDevicesBleViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.UserHomeViewModel
 import io.homeasy.app.feature_login_register.presentation.LoginViewModel
@@ -42,7 +38,7 @@ import io.homeasy.app.core.navigation.features.CheckingPermissionsFeatureImpl
 import io.homeasy.app.core.navigation.features.RoomFeatureImpl
 import io.homeasy.app.core.navigation.features.ScanDevicesBleFeatureImpl
 import io.homeasy.app.core.navigation.features.WifiInfoScreenFeatureImpl
-import io.homeasy.app.feature_devices.presentation.viewmodel.EZConnectViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.EZConnectViewModel
 import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 @Composable

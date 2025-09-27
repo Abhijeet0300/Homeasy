@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_devices.data
+package io.homeasy.app.feature_connection.data
 
 import android.content.Context
 import android.util.Log
@@ -9,8 +9,8 @@ import com.thingclips.smart.sdk.api.IThingActivatorGetToken
 import com.thingclips.smart.sdk.api.IThingSmartActivatorListener
 import com.thingclips.smart.sdk.bean.DeviceBean
 import com.thingclips.smart.sdk.enums.ActivatorModelEnum
-import io.homeasy.app.feature_devices.domain.model.DeviceActivationResult
-import io.homeasy.app.feature_devices.domain.repository.EZConnectRepository
+import io.homeasy.app.feature_connection.domain.model.DeviceActivationResult
+import io.homeasy.app.feature_connection.domain.repository.EZConnectRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow

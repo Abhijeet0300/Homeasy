@@ -1,7 +1,6 @@
-package io.homeasy.app.feature_devices.domain.repository
+package io.homeasy.app.feature_connection.domain.repository
 
-import com.thingclips.smart.mqttclient.mqttv3.internal.Token
-import io.homeasy.app.feature_devices.domain.model.DeviceActivationResult
+import io.homeasy.app.feature_connection.domain.model.DeviceActivationResult
 import kotlinx.coroutines.flow.Flow
 
 interface EZConnectRepository {

@@ -1,7 +1,7 @@
-package io.homeasy.app.feature_devices.domain.usecases
+package io.homeasy.app.feature_connection.domain.usecases
 
-import io.homeasy.app.feature_devices.domain.model.DeviceActivationResult
-import io.homeasy.app.feature_devices.domain.repository.EZConnectRepository
+import io.homeasy.app.feature_connection.domain.model.DeviceActivationResult
+import io.homeasy.app.feature_connection.domain.repository.EZConnectRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

@@ -3,8 +3,8 @@ package io.homeasy.app.permissions.presentation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import io.homeasy.app.feature_devices.presentation.ScanDevices
-import io.homeasy.app.feature_devices.presentation.viewmodel.ScanDevicesBleViewModel
+import io.homeasy.app.feature_connection.presentation.ScanDevices
+import io.homeasy.app.feature_connection.presentation.viewmodel.ScanDevicesBleViewModel
 
 @Composable
 fun CheckingPermissions(

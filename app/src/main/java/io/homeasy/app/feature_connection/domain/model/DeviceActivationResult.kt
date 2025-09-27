@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_devices.domain.model
+package io.homeasy.app.feature_connection.domain.model
 
 import com.thingclips.smart.sdk.bean.DeviceBean
 

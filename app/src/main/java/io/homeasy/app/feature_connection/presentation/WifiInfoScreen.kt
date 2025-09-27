@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_devices.presentation
+package io.homeasy.app.feature_connection.presentation
 
 
 import android.content.Context
@@ -28,8 +28,8 @@ import io.homeasy.app.core.utils.ui_components.AppTextField
 import io.homeasy.app.R
 import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.utils.ui_components.RegularButton
-import io.homeasy.app.feature_devices.domain.model.DeviceActivationResult
-import io.homeasy.app.feature_devices.presentation.viewmodel.EZConnectViewModel
+import io.homeasy.app.feature_connection.domain.model.DeviceActivationResult
+import io.homeasy.app.feature_connection.presentation.viewmodel.EZConnectViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 import io.homeasy.app.feature_room.presentation.RoomViewModel
 

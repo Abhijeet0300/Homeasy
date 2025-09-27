@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_devices.di
+package io.homeasy.app.feature_connection.di
 
 import android.content.Context
 import com.thingclips.smart.android.ble.IThingBleOperator
@@ -8,8 +8,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.homeasy.app.feature_devices.data.ScanDevicesBleImpl
-import io.homeasy.app.feature_devices.domain.repository.ScanDevicesBle
+import io.homeasy.app.feature_connection.data.ScanDevicesBleImpl
+import io.homeasy.app.feature_connection.domain.repository.ScanDevicesBle
 import javax.inject.Singleton
 
 @Module

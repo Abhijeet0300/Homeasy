@@ -1,13 +1,12 @@
-package io.homeasy.app.feature_devices.presentation.viewmodel
+package io.homeasy.app.feature_connection.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.homeasy.app.feature_devices.domain.model.DeviceActivationResult
-import io.homeasy.app.feature_devices.domain.usecases.EZTokenUseCase
-import io.homeasy.app.feature_devices.domain.usecases.EZWifiPairingUseCase
-import io.homeasy.app.feature_home.domain.usecase.StartEZPairingUseCase
+import io.homeasy.app.feature_connection.domain.model.DeviceActivationResult
+import io.homeasy.app.feature_connection.domain.usecases.EZTokenUseCase
+import io.homeasy.app.feature_connection.domain.usecases.EZWifiPairingUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

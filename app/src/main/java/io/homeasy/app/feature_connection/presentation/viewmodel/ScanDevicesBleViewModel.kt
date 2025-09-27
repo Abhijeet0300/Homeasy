@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_devices.presentation.viewmodel
+package io.homeasy.app.feature_connection.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import com.thingclips.smart.home.sdk.ThingHomeSdk
 import com.thingclips.smart.home.sdk.bean.ConfigProductInfoBean
 import com.thingclips.smart.sdk.api.IThingDataCallback
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.homeasy.app.feature_devices.domain.usecases.ScanDevicesBleUseCase
+import io.homeasy.app.feature_connection.domain.usecases.ScanDevicesBleUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
