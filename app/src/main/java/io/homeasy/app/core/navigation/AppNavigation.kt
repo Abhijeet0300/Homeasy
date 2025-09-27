@@ -35,10 +35,12 @@ import io.homeasy.app.feature_login_register.presentation.RegisterViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
 import io.homeasy.app.R
 import io.homeasy.app.core.navigation.features.CheckingPermissionsFeatureImpl
+import io.homeasy.app.core.navigation.features.LightScreenFeatureImpl
 import io.homeasy.app.core.navigation.features.RoomFeatureImpl
 import io.homeasy.app.core.navigation.features.ScanDevicesBleFeatureImpl
 import io.homeasy.app.core.navigation.features.WifiInfoScreenFeatureImpl
 import io.homeasy.app.feature_connection.presentation.viewmodel.EZConnectViewModel
+import io.homeasy.app.feature_device_control.presentation.viewmodel.LightScreenViewModel
 import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 @Composable
@@ -55,6 +57,7 @@ fun AppNavigation(
     val scanDevicesBleViewModel : ScanDevicesBleViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val ezConnectViewModel : EZConnectViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val roomViewModel : RoomViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val lightScreenViewModel : LightScreenViewModel = hiltViewModel(activity as ViewModelStoreOwner)
 
 
     val viewModelsMap = mapOf<String, ViewModel>(
@@ -65,7 +68,8 @@ fun AppNavigation(
         "user_home_view_model" to userHomeViewModel,
         stringResource(id = R.string.scan_devices_ble_view_model) to scanDevicesBleViewModel,
         stringResource(id = R.string.ez_connect_view_model) to ezConnectViewModel,
-        stringResource(id = R.string.room_view_model) to roomViewModel
+        stringResource(id = R.string.room_view_model) to roomViewModel,
+        "light_screen_view_model" to lightScreenViewModel
     )
 
     val featureApis : List<FeatureApi> = listOf(
@@ -79,7 +83,8 @@ fun AppNavigation(
         ScanDevicesBleFeatureImpl(),
         CheckingPermissionsFeatureImpl(),
         WifiInfoScreenFeatureImpl(),
-        RoomFeatureImpl()
+        RoomFeatureImpl(),
+        LightScreenFeatureImpl()
     )
 
 

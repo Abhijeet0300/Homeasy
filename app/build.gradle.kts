@@ -107,6 +107,9 @@ dependencies {
     //Google accompanist permissions
     implementation(libs.accompanist.permissions)
 
+    //Color picker
+    implementation(libs.colorpicker.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

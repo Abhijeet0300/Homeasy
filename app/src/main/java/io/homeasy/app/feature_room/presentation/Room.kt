@@ -3,8 +3,10 @@ package io.homeasy.app.feature_room.presentation
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,6 +34,10 @@ import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import com.thingclips.smart.sdk.bean.DeviceBean
+import io.homeasy.app.core.utils.ui.theme.Orange
+import io.homeasy.app.R
 
 @Composable
 fun Room(
@@ -42,10 +48,12 @@ fun Room(
     val roomBean by roomViewModel.selectedRoom.collectAsState()
     val context = LocalContext.current
     val isDeviceAdded by roomViewModel.isDeviceAdded.collectAsState()
+    var deviceList = emptyList<DeviceBean>()
 
     LaunchedEffect(Unit) {
         Log.i("Room View Model", "Home Id : ${homeViewModel.selectedHome.value!!.homeId}, roomId : ${roomBean?.roomId}")
         roomViewModel.getRoomDetails(homeId = homeViewModel.selectedHome.value!!.homeId, roomId = roomBean?.roomId ?: 0)
+        deviceList = roomBean?.deviceList ?: emptyList()
     }
 
     LaunchedEffect(isDeviceAdded) {
@@ -60,9 +68,10 @@ fun Room(
         item{
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
+
             ) {
-                items(roomBean?.deviceList?.size ?: 0) {
-                    RoomDevices()
+                items(roomBean?.deviceList?.size ?: 0) { index ->
+                    RoomDevices(deviceBean = roomBean?.deviceList!!.get(index), navController = navController)
                 }
             }
         }
@@ -80,24 +89,41 @@ fun Room(
 }
 
 @Composable
-fun RoomDevices() {
+fun RoomDevices(
+    deviceBean : DeviceBean,
+    navController: NavController
+) {
     Card(
-        modifier = Modifier.size(100.dp),
+        modifier = Modifier.size(100.dp).combinedClickable(
+            onClick = {
+                navController.navigate(route = AppRoutes.LIGHT_SCREEN)
+            }
+        ),
         shape = RoundedCornerShape(size = 12.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(
-            containerColor = White,
+            containerColor = Orange,
         )
     ){
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Icon(
-                modifier = Modifier.size(60.dp),
-                imageVector = Icons.Default.Home,
-                contentDescription = null
-            )
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    modifier = Modifier.size(50.dp),
+                    painter = painterResource(id = R.drawable.bulb),
+                    contentDescription = null
+                )
+
+                Text(
+                    text = "${deviceBean.category}"
+                )
+            }
         }
     }
 }
