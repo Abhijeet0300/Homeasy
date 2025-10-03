@@ -9,10 +9,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.utils.ui_components.RegularButton
+import io.homeasy.app.feature_connection.domain.model.DeviceType
+import io.homeasy.app.feature_connection.presentation.viewmodel.PairingDeviceTypeViewModel
 
 @Composable
 fun SelectDeviceType(
-    navController: NavController
+    navController: NavController,
+    pairingDeviceTypeViewModel : PairingDeviceTypeViewModel
 ) {
     Column(
         modifier = Modifier.fillMaxSize() ,
@@ -21,6 +24,7 @@ fun SelectDeviceType(
         RegularButton(
             label = "Light",
             onClick = {
+                pairingDeviceTypeViewModel.setSelectedDeviceType(deviceType = DeviceType.LIGHT)
                 navController.navigate(route = AppRoutes.SCAN_DEVICES)
             }
         )
@@ -28,7 +32,8 @@ fun SelectDeviceType(
         RegularButton(
             label = "Smart Camera",
             onClick = {
-                navController.navigate(route = AppRoutes.SCAN_DEVICES)
+                pairingDeviceTypeViewModel.setSelectedDeviceType(deviceType = DeviceType.CAMERA)
+                navController.navigate(route = AppRoutes.WIFI_INFO)
             }
         )
     }

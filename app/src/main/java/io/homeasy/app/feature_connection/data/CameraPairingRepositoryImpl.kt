@@ -27,7 +27,7 @@ import com.google.zxing.WriterException
 import java.util.Hashtable
 
 class CameraPairingRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context : Context
+    private val context : Context
 ) : CameraPairingRepository {
     override suspend fun getToken(homeId: Long): Result<String> {
        return suspendCancellableCoroutine { continuation ->

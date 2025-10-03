@@ -35,13 +35,16 @@ class CameraPairingViewModel @Inject constructor(
                             _qrBitmap.value = ev.bitmap
                             _status.value = "showing QR"
                         }
+
                         is CameraDeviceActivationResult.Success -> {
                             _device.value = ev.device
                             _status.value = "paired"
                         }
+
                         is CameraDeviceActivationResult.Failure -> {
                             _status.value = "error: ${ev.message}"
                         }
+
                         is CameraDeviceActivationResult.Step -> {
                             _status.value = "step: ${ev.step}"
                         }

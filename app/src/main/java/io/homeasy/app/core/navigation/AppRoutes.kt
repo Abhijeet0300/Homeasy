@@ -14,4 +14,5 @@ object AppRoutes {
     const val WIFI_INFO = "wifi_info"
     const val ROOM = "room"
     const val LIGHT_SCREEN = "light_screen"
+    const val CAMERA_PAIRING = "camera_pairing"
 }

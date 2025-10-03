@@ -40,6 +40,8 @@ import io.homeasy.app.core.navigation.features.RoomFeatureImpl
 import io.homeasy.app.core.navigation.features.ScanDevicesBleFeatureImpl
 import io.homeasy.app.core.navigation.features.WifiInfoScreenFeatureImpl
 import io.homeasy.app.feature_connection.presentation.viewmodel.EZConnectViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.PairingDeviceTypeViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.camera.CameraPairingViewModel
 import io.homeasy.app.feature_device_control.presentation.viewmodel.LightScreenViewModel
 import io.homeasy.app.feature_room.presentation.RoomViewModel
 
@@ -58,6 +60,8 @@ fun AppNavigation(
     val ezConnectViewModel : EZConnectViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val roomViewModel : RoomViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val lightScreenViewModel : LightScreenViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val cameraPairingViewModel : CameraPairingViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val pairingDeviceTypeViewModel : PairingDeviceTypeViewModel = hiltViewModel(activity as ViewModelStoreOwner)
 
 
     val viewModelsMap = mapOf<String, ViewModel>(
@@ -69,7 +73,9 @@ fun AppNavigation(
         stringResource(id = R.string.scan_devices_ble_view_model) to scanDevicesBleViewModel,
         stringResource(id = R.string.ez_connect_view_model) to ezConnectViewModel,
         stringResource(id = R.string.room_view_model) to roomViewModel,
-        "light_screen_view_model" to lightScreenViewModel
+        "light_screen_view_model" to lightScreenViewModel,
+        stringResource(id = R.string.camera_pairing_view_model) to cameraPairingViewModel,
+        stringResource(id = R.string.pairing_device_type_view_model) to pairingDeviceTypeViewModel
     )
 
     val featureApis : List<FeatureApi> = listOf(

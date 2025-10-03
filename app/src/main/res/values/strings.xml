@@ -56,11 +56,13 @@
     <string name="scan_devices_ble_view_model">Scan_Devices_Ble_View_Model</string>
     <string name="ez_connect_view_model">Ez_Connect_View_Model</string>
     <string name="room_view_model">Room_View_Model</string>
+    <string name="camera_pairing_view_model">Camera_Pairing_View_Model</string>
 
     //Wifi screen
     <string name="wifi_name">Wifi Name</string>
     <string name="wifi_password">Wifi Password</string>
     <string name="enter_wifi_password">Enter wifi password</string>
     <string name="wifi_connect">Connect</string>
+    <string name="pairing_device_type_view_model">Pairing_Device_Type_View_Model</string>
 
 </resources>
