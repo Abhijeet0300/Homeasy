@@ -68,10 +68,13 @@ fun Room(
         item{
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
-
             ) {
                 items(roomBean?.deviceList?.size ?: 0) { index ->
-                    RoomDevices(deviceBean = roomBean?.deviceList!!.get(index), navController = navController)
+                    RoomDevices(
+                        deviceBean = roomBean?.deviceList!!.get(index),
+                        navController = navController,
+                        roomViewModel = roomViewModel
+                    )
                 }
             }
         }
@@ -91,11 +94,13 @@ fun Room(
 @Composable
 fun RoomDevices(
     deviceBean : DeviceBean,
-    navController: NavController
+    navController: NavController,
+    roomViewModel : RoomViewModel
 ) {
     Card(
         modifier = Modifier.size(100.dp).combinedClickable(
             onClick = {
+                roomViewModel.setSelectedDevice(deviceBean)
                 navController.navigate(route = AppRoutes.LIGHT_SCREEN)
             }
         ),

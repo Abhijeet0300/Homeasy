@@ -28,6 +28,9 @@ class RoomViewModel @Inject constructor(
     private val _addedDeviceBean = MutableStateFlow<DeviceBean?>(null)
     val addedDeviceBean = _addedDeviceBean.asStateFlow()
 
+    private val _selectedDevice = MutableStateFlow<DeviceBean?>(null)
+    val selectedDevice = _selectedDevice.asStateFlow()
+
     fun addDevice(
         roomId : Long,
         deviceId : String
@@ -68,5 +71,9 @@ class RoomViewModel @Inject constructor(
             Log.i("RoomViewModel", "Adding device to room: ${_selectedRoom.value!!.roomId}")
             addDevice(roomId = _selectedRoom.value!!.roomId, deviceId = device.devId)
         }
+    }
+
+    fun setSelectedDevice(deviceBean : DeviceBean) {
+        _selectedDevice.value = deviceBean
     }
 }

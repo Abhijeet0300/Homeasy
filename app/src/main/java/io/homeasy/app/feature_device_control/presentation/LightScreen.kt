@@ -13,12 +13,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilledIconToggleButton
-import androidx.compose.material3.OutlinedIconToggleButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -36,20 +35,24 @@ import androidx.compose.runtime.setValue
 import io.homeasy.app.core.utils.ui.theme.ColoredTextColor
 import io.homeasy.app.core.utils.ui.theme.Grey
 import io.homeasy.app.feature_device_control.presentation.viewmodel.LightScreenViewModel
+import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 //@Preview(showBackground = true)
 @Composable
 fun LightScreen(
+    roomViewModel: RoomViewModel,
     viewModel : LightScreenViewModel
 ) {
     val colorController = rememberColorPickerController()
+    val selectedDevice by roomViewModel.selectedDevice.collectAsState()
+
     var hsv by remember {
         mutableStateOf("")
     }
+
     var switch by remember {
         mutableStateOf(false)
     }
-
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
@@ -71,12 +74,14 @@ fun LightScreen(
                 verticalArrangement = Arrangement.spacedBy(5.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
                 Row {
                     Spacer(modifier = Modifier.weight(1f))
                     Switch(
                         checked = switch,
                         onCheckedChange = { value ->
+                            if(selectedDevice != null) {
+                                viewModel.toggleLights(id = selectedDevice!!.devId, turnOn = value)
+                            }
                             switch = value
                         },
                         colors = SwitchDefaults.colors(

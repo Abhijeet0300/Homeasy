@@ -95,11 +95,14 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
+
     //tuya integration
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
     implementation (libs.fastjson)
     implementation (libs.okhttp.urlconnection)
     implementation(libs.thingsmart)
+    implementation(libs.thingsmart.ipcsdk)
+    implementation(libs.core)
 
     //Navigation compose
     implementation(libs.androidx.navigation.compose)

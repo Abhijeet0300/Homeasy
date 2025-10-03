@@ -17,13 +17,6 @@ class LightScreenViewModel @Inject constructor(
     private val toggleLightsUseCase: ToggleLightsUseCase,
     private val setBrightnessUseCase: SetBrightnessUseCase
 ) : ViewModel() {
-    val _lightBulb = MutableStateFlow<DeviceBean?>(null)
-    val lightBulb = _lightBulb.asStateFlow()
-
-    fun setLightBulb(deviceBean : DeviceBean) {
-        _lightBulb.value = deviceBean
-    }
-
     fun toggleLights(id : String, turnOn : Boolean) {
         viewModelScope.launch {
             toggleLightsUseCase(id = id, turnOn = turnOn)
