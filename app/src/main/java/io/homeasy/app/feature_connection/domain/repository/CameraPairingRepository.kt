@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CameraPairingRepository {
     suspend fun getToken(homeId : Long) : Result<String>
-    suspend fun startCameraQrPairing(ssid : String, password : String, homeId : Long, timeOutSec : Long = 100) : Flow<CameraDeviceActivationResult>
+    fun startCameraQrPairing(ssid : String, password : String, homeId : Long, timeOutSec : Long = 100) : Flow<CameraDeviceActivationResult>
 }

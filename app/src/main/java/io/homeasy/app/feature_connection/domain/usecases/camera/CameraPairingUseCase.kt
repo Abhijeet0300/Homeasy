@@ -8,7 +8,7 @@ import javax.inject.Inject
 class CameraPairingUseCase @Inject constructor(
     private val repo : CameraPairingRepository
 ){
-    suspend operator fun invoke(ssid : String, password : String, homeId : Long, timeOutSec : Long = 100) : Flow<CameraDeviceActivationResult> =
+    operator fun invoke(ssid : String, password : String, homeId : Long, timeOutSec : Long = 100) : Flow<CameraDeviceActivationResult> =
         repo.startCameraQrPairing(
         ssid = ssid,
         password = password,

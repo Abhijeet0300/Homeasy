@@ -66,7 +66,7 @@ class RoomViewModel @Inject constructor(
     }
 
     fun setAddedDevice(device : DeviceBean) {
-        _addedDeviceBean.value = device
+        //_addedDeviceBean.value = device
         if(_selectedRoom.value != null) {
             Log.i("RoomViewModel", "Adding device to room: ${_selectedRoom.value!!.roomId}")
             addDevice(roomId = _selectedRoom.value!!.roomId, deviceId = device.devId)

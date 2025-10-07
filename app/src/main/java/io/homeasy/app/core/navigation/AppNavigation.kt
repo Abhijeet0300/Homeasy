@@ -34,13 +34,17 @@ import io.homeasy.app.feature_login_register.presentation.LoginViewModel
 import io.homeasy.app.feature_login_register.presentation.RegisterViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
 import io.homeasy.app.R
+import io.homeasy.app.core.navigation.features.CameraPairingScreenFeatureImpl
 import io.homeasy.app.core.navigation.features.CheckingPermissionsFeatureImpl
 import io.homeasy.app.core.navigation.features.LightScreenFeatureImpl
 import io.homeasy.app.core.navigation.features.RoomFeatureImpl
 import io.homeasy.app.core.navigation.features.ScanDevicesBleFeatureImpl
+import io.homeasy.app.core.navigation.features.SelectDeviceTypeFeatureImpl
 import io.homeasy.app.core.navigation.features.WifiInfoScreenFeatureImpl
+import io.homeasy.app.feature_connection.presentation.SelectDeviceType
 import io.homeasy.app.feature_connection.presentation.viewmodel.EZConnectViewModel
 import io.homeasy.app.feature_connection.presentation.viewmodel.PairingDeviceTypeViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.WifiInfoViewModel
 import io.homeasy.app.feature_connection.presentation.viewmodel.camera.CameraPairingViewModel
 import io.homeasy.app.feature_device_control.presentation.viewmodel.LightScreenViewModel
 import io.homeasy.app.feature_room.presentation.RoomViewModel
@@ -62,7 +66,7 @@ fun AppNavigation(
     val lightScreenViewModel : LightScreenViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val cameraPairingViewModel : CameraPairingViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val pairingDeviceTypeViewModel : PairingDeviceTypeViewModel = hiltViewModel(activity as ViewModelStoreOwner)
-
+    val wifiInfoViewModel : WifiInfoViewModel = hiltViewModel(activity as ViewModelStoreOwner)
 
     val viewModelsMap = mapOf<String, ViewModel>(
         "user_view_model" to userViewModel,
@@ -75,7 +79,8 @@ fun AppNavigation(
         stringResource(id = R.string.room_view_model) to roomViewModel,
         "light_screen_view_model" to lightScreenViewModel,
         stringResource(id = R.string.camera_pairing_view_model) to cameraPairingViewModel,
-        stringResource(id = R.string.pairing_device_type_view_model) to pairingDeviceTypeViewModel
+        stringResource(id = R.string.pairing_device_type_view_model) to pairingDeviceTypeViewModel,
+        stringResource(id = R.string.wifi_info_view_model) to wifiInfoViewModel
     )
 
     val featureApis : List<FeatureApi> = listOf(
@@ -90,7 +95,9 @@ fun AppNavigation(
         CheckingPermissionsFeatureImpl(),
         WifiInfoScreenFeatureImpl(),
         RoomFeatureImpl(),
-        LightScreenFeatureImpl()
+        LightScreenFeatureImpl(),
+        SelectDeviceTypeFeatureImpl(),
+        CameraPairingScreenFeatureImpl()
     )
 
 

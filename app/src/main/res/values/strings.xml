@@ -64,5 +64,6 @@
     <string name="enter_wifi_password">Enter wifi password</string>
     <string name="wifi_connect">Connect</string>
     <string name="pairing_device_type_view_model">Pairing_Device_Type_View_Model</string>
+    <string name="wifi_info_view_model">Wifi_Info_View_Model</string>
 
 </resources>

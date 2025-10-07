@@ -29,21 +29,27 @@ import io.homeasy.app.R
 import io.homeasy.app.core.navigation.AppRoutes
 import io.homeasy.app.core.utils.ui_components.RegularButton
 import io.homeasy.app.feature_connection.domain.model.DeviceActivationResult
+import io.homeasy.app.feature_connection.domain.model.DeviceType
 import io.homeasy.app.feature_connection.presentation.viewmodel.EZConnectViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.PairingDeviceTypeViewModel
+import io.homeasy.app.feature_connection.presentation.viewmodel.WifiInfoViewModel
 import io.homeasy.app.feature_home.presentation.viewmodel.HomeViewModel
 import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 
 @Composable
 fun WifiInfoScreen(
-   navController: NavController,
-   viewModel : EZConnectViewModel,
-   homeViewModel: HomeViewModel,
-   roomViewModel: RoomViewModel
+    navController: NavController,
+    ezConnectViewModel : EZConnectViewModel,
+    homeViewModel: HomeViewModel,
+    roomViewModel: RoomViewModel,
+    wifiInfoViewModel: WifiInfoViewModel,
+    pairingDeviceTypeViewModel: PairingDeviceTypeViewModel
 ) {
     val context = LocalContext.current
-    val isPairing by viewModel.isPairing.collectAsState()
-    val pairingResult by viewModel.pairingResult.collectAsState()
+    val isPairing by ezConnectViewModel.isPairing.collectAsState()
+    val pairingResult by ezConnectViewModel.pairingResult.collectAsState()
+    val deviceType by pairingDeviceTypeViewModel.selectedDeviceType.collectAsState()
 
     var wifiSsid = remember {
         mutableStateOf("")
@@ -114,11 +120,27 @@ fun WifiInfoScreen(
         RegularButton(
             label = stringResource(id = R.string.wifi_connect),
             onClick = {
-                viewModel.startPairing(
+                wifiInfoViewModel.setWifiCredentials(
                     ssid = wifiSsid.value,
-                    password = wifiPassword.value,
-                    homeId = homeViewModel.selectedHome.value!!.homeId
+                    password = wifiPassword.value
                 )
+
+                when(deviceType) {
+
+                    DeviceType.LIGHT -> {
+                        ezConnectViewModel.startPairing(
+                            ssid = wifiSsid.value,
+                            password = wifiPassword.value,
+                            homeId = homeViewModel.selectedHome.value!!.homeId
+                        )
+                    }
+
+                    DeviceType.CAMERA -> {
+                        navController.navigate(route = AppRoutes.CAMERA_PAIRING)
+                    }
+
+                    else -> {}
+                }
             }
         )
     }

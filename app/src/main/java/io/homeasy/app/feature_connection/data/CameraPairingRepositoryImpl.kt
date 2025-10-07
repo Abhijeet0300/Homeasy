@@ -24,11 +24,13 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import kotlinx.coroutines.Dispatchers
 import java.util.Hashtable
 
 class CameraPairingRepositoryImpl @Inject constructor(
-    private val context : Context
+    @ApplicationContext private val context : Context
 ) : CameraPairingRepository {
+
     override suspend fun getToken(homeId: Long): Result<String> {
        return suspendCancellableCoroutine { continuation ->
            ThingHomeSdk.getActivatorInstance().getActivatorToken(homeId, object : IThingActivatorGetToken {
@@ -43,77 +45,80 @@ class CameraPairingRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun startCameraQrPairing(
+    override fun startCameraQrPairing(
         ssid: String,
         password: String,
         homeId: Long,
         timeOutSec: Long
-    ) : Flow<CameraDeviceActivationResult> = callbackFlow {
-        val job = kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.Dispatchers.IO) {
-            val tokenResult = try {
-                getToken(homeId)
-            } catch (t: Throwable) {
-                Result.failure<String>(t)
-            }
+    ): Flow<CameraDeviceActivationResult> = callbackFlow {
 
-            if (tokenResult.isFailure) {
-                trySend(CameraDeviceActivationResult.Failure("TOKEN_ERROR", tokenResult.exceptionOrNull()?.message))
-                close()
-                return@launch
-            }
+        val tokenResult = try {
+            getToken(homeId)
+        } catch (t: Throwable) {
+            Result.failure<String>(t)
+        }
 
-            val token = tokenResult.getOrNull()!!
+        if (tokenResult.isFailure) {
+            trySend(CameraDeviceActivationResult.Failure("TOKEN_ERROR", tokenResult.exceptionOrNull()?.message))
+            close()
+            return@callbackFlow
+        }
 
-            // Build activator
-            val builder = ThingCameraActivatorBuilder()
-                .setContext(context)
-                .setSsid(ssid)
-                .setPassword(password)
-                .setToken(token)
-                .setTimeOut(timeOutSec)
-                .setListener(object : IThingSmartCameraActivatorListener {
-                    override fun onQRCodeSuccess(qrcodeUrl: String?) {
-                        if (qrcodeUrl != null) {
-                            try {
-                                val bmp = createQRCode(qrcodeUrl, 600)
-                                trySend(CameraDeviceActivationResult.QrCode(qrcodeUrl, bmp))
-                            } catch (e: Exception) {
-                                Log.e("CameraPairingRepo", "QR gen failed", e)
-                                trySend(CameraDeviceActivationResult.Failure("QR_ERROR", e.message))
-                            }
-                        }
+        val token = tokenResult.getOrNull()!!
+
+        val listener = object : IThingSmartCameraActivatorListener {
+            override fun onQRCodeSuccess(qrcodeUrl: String?) {
+                if (qrcodeUrl != null) {
+                    try {
+                        val bmp = createQRCode(qrcodeUrl, 600)
+                        trySend(CameraDeviceActivationResult.QrCode(qrcodeUrl, bmp))
+                    } catch (e: Exception) {
+                        Log.e("CameraPairingRepo", "QR gen failed", e)
+                        trySend(CameraDeviceActivationResult.Failure("QR_ERROR", e.message))
+                        close()
                     }
-
-                    override fun onError(errorCode: String?, errorMsg: String?) {
-                        trySend(CameraDeviceActivationResult.Failure(errorCode, errorMsg))
-                    }
-
-                    override fun onActiveSuccess(devResp: DeviceBean?) {
-                        if (devResp != null) trySend(CameraDeviceActivationResult.Success(devResp))
-                    }
-                })
-
-            // create activator and start
-            val activator = ThingHomeSdk.getActivatorInstance().newCameraDevActivator(builder)
-            activator.createQRCode() // generates the qrcodeUrl via listener
-            activator.start()
-
-            // awaitClose will be executed when collector cancels
-            awaitClose {
-                try {
-                    activator.stop()
-                    activator.onDestroy()
-                } catch (t: Throwable) {
-                    // ignore
+                } else {
+                    trySend(CameraDeviceActivationResult.Failure("QR_ERROR", "QR code URL was null"))
+                    close()
                 }
             }
+
+            override fun onError(errorCode: String?, errorMsg: String?) {
+                trySend(CameraDeviceActivationResult.Failure(errorCode, errorMsg))
+                close()
+            }
+
+            override fun onActiveSuccess(devResp: DeviceBean?) {
+                if (devResp != null) {
+                    trySend(CameraDeviceActivationResult.Success(devResp))
+                } else {
+                    trySend(CameraDeviceActivationResult.Failure("SUCCESS_ERROR", "DeviceBean was null"))
+                }
+                close()
+            }
         }
 
-        // When collector cancels, cancel the job too
+        val builder = ThingCameraActivatorBuilder()
+            .setContext(context)
+            .setSsid(ssid)
+            .setPassword(password)
+            .setToken(token)
+            .setTimeOut(timeOutSec)
+            .setListener(listener)
+
+        val activator = ThingHomeSdk.getActivatorInstance().newCameraDevActivator(builder)
+
+        activator.createQRCode()
+        activator.start()
+
         awaitClose {
-            job.cancel()
+            Log.d("CameraPairingRepo", "Flow closing. Cleaning up activator.")
+            activator.stop()
+            activator.onDestroy()
         }
     }
+
+
 
     @Throws(WriterException::class)
     private fun createQRCode(url: String, widthAndHeight: Int): Bitmap {

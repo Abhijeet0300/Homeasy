@@ -17,7 +17,7 @@ object CameraPairingModule {
 
     @Provides
     @Singleton
-    fun provideCameraRepositoryInstance(@ApplicationContext context : Context) =
+    fun provideCameraRepositoryInstance(@ApplicationContext context : Context) : CameraPairingRepository =
         CameraPairingRepositoryImpl(context = context)
 
     @Provides

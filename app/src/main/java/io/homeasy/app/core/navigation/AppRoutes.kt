@@ -15,4 +15,5 @@ object AppRoutes {
     const val ROOM = "room"
     const val LIGHT_SCREEN = "light_screen"
     const val CAMERA_PAIRING = "camera_pairing"
+    const val SELECT_DEVICES = "select_devices"
 }
