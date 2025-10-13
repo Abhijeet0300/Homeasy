@@ -149,8 +149,6 @@ class CameraRepoImpl @Inject constructor(
 
             })
         }
-
-
     }
 
     override fun destroy() {
