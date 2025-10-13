@@ -1,6 +1,7 @@
 package io.homeasy.app
 
 import android.app.Application
+import com.thingclips.smart.android.camera.sdk.ThingIPCSdk
 import com.thingclips.smart.home.sdk.ThingHomeSdk
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject

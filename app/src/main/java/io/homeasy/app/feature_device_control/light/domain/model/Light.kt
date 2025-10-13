@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_device_control.domain.model
+package io.homeasy.app.feature_device_control.light.domain.model
 
 data class Light(
     val id : String,

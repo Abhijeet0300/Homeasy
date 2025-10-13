@@ -65,5 +65,6 @@
     <string name="wifi_connect">Connect</string>
     <string name="pairing_device_type_view_model">Pairing_Device_Type_View_Model</string>
     <string name="wifi_info_view_model">Wifi_Info_View_Model</string>
+    <string name="camera_view_model">Camera_View_Model</string>
 
 </resources>

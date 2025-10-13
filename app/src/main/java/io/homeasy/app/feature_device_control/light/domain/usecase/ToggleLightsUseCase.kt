@@ -1,6 +1,6 @@
-package io.homeasy.app.feature_device_control.domain.usecase
+package io.homeasy.app.feature_device_control.light.domain.usecase
 
-import io.homeasy.app.feature_device_control.domain.repository.LightRepository
+import io.homeasy.app.feature_device_control.light.domain.repository.LightRepository
 import javax.inject.Inject
 
 class ToggleLightsUseCase @Inject constructor(

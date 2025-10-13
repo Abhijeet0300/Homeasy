@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_device_control.domain.repository
+package io.homeasy.app.feature_device_control.light.domain.repository
 
 interface LightRepository {
     suspend fun toggleLights(devId : String, turnOn : Boolean)

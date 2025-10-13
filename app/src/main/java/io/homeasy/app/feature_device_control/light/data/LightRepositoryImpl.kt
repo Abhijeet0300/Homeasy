@@ -1,10 +1,10 @@
-package io.homeasy.app.feature_device_control.data
+package io.homeasy.app.feature_device_control.light.data
 
 import android.util.Log
 import com.alibaba.fastjson.JSONObject
 import com.thingclips.smart.home.sdk.ThingHomeSdk
 import com.thingclips.smart.sdk.api.IResultCallback
-import io.homeasy.app.feature_device_control.domain.repository.LightRepository
+import io.homeasy.app.feature_device_control.light.domain.repository.LightRepository
 
 class LightRepositoryImpl : LightRepository {
     override suspend fun toggleLights(devId: String, turnOn: Boolean) {

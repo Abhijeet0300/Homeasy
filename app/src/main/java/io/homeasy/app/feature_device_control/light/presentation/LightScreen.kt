@@ -1,4 +1,4 @@
-package io.homeasy.app.feature_device_control.presentation
+package io.homeasy.app.feature_device_control.light.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.skydoves.colorpicker.compose.ColorEnvelope
 import com.github.skydoves.colorpicker.compose.HsvColorPicker
@@ -34,7 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import io.homeasy.app.core.utils.ui.theme.ColoredTextColor
 import io.homeasy.app.core.utils.ui.theme.Grey
-import io.homeasy.app.feature_device_control.presentation.viewmodel.LightScreenViewModel
+import io.homeasy.app.feature_device_control.light.presentation.viewmodel.LightScreenViewModel
 import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 //@Preview(showBackground = true)

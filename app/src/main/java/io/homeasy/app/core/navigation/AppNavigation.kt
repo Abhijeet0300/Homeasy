@@ -34,6 +34,8 @@ import io.homeasy.app.feature_login_register.presentation.LoginViewModel
 import io.homeasy.app.feature_login_register.presentation.RegisterViewModel
 import io.homeasy.app.feature_login_register.presentation.UserViewModel
 import io.homeasy.app.R
+import io.homeasy.app.core.navigation.features.CControlFeatureImpl
+import io.homeasy.app.core.navigation.features.CameraControlFeatureImpl
 import io.homeasy.app.core.navigation.features.CameraPairingScreenFeatureImpl
 import io.homeasy.app.core.navigation.features.CheckingPermissionsFeatureImpl
 import io.homeasy.app.core.navigation.features.LightScreenFeatureImpl
@@ -41,12 +43,13 @@ import io.homeasy.app.core.navigation.features.RoomFeatureImpl
 import io.homeasy.app.core.navigation.features.ScanDevicesBleFeatureImpl
 import io.homeasy.app.core.navigation.features.SelectDeviceTypeFeatureImpl
 import io.homeasy.app.core.navigation.features.WifiInfoScreenFeatureImpl
-import io.homeasy.app.feature_connection.presentation.SelectDeviceType
 import io.homeasy.app.feature_connection.presentation.viewmodel.EZConnectViewModel
 import io.homeasy.app.feature_connection.presentation.viewmodel.PairingDeviceTypeViewModel
 import io.homeasy.app.feature_connection.presentation.viewmodel.WifiInfoViewModel
 import io.homeasy.app.feature_connection.presentation.viewmodel.camera.CameraPairingViewModel
-import io.homeasy.app.feature_device_control.presentation.viewmodel.LightScreenViewModel
+import io.homeasy.app.feature_device_control.camera.presentation.viewmodel.CameraViewModel
+import io.homeasy.app.feature_device_control.camera_new.presentation.viewmodel.CameraControlViewModel
+import io.homeasy.app.feature_device_control.light.presentation.viewmodel.LightScreenViewModel
 import io.homeasy.app.feature_room.presentation.RoomViewModel
 
 @Composable
@@ -67,6 +70,8 @@ fun AppNavigation(
     val cameraPairingViewModel : CameraPairingViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val pairingDeviceTypeViewModel : PairingDeviceTypeViewModel = hiltViewModel(activity as ViewModelStoreOwner)
     val wifiInfoViewModel : WifiInfoViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val cameraViewModel : CameraViewModel = hiltViewModel(activity as ViewModelStoreOwner)
+    val cameraControlViewModel : CameraControlViewModel = hiltViewModel(activity as ViewModelStoreOwner)
 
     val viewModelsMap = mapOf<String, ViewModel>(
         "user_view_model" to userViewModel,
@@ -80,7 +85,9 @@ fun AppNavigation(
         "light_screen_view_model" to lightScreenViewModel,
         stringResource(id = R.string.camera_pairing_view_model) to cameraPairingViewModel,
         stringResource(id = R.string.pairing_device_type_view_model) to pairingDeviceTypeViewModel,
-        stringResource(id = R.string.wifi_info_view_model) to wifiInfoViewModel
+        stringResource(id = R.string.wifi_info_view_model) to wifiInfoViewModel,
+        stringResource(id = R.string.camera_view_model) to cameraViewModel,
+        "camera_control_view_model" to cameraControlViewModel
     )
 
     val featureApis : List<FeatureApi> = listOf(
@@ -97,7 +104,9 @@ fun AppNavigation(
         RoomFeatureImpl(),
         LightScreenFeatureImpl(),
         SelectDeviceTypeFeatureImpl(),
-        CameraPairingScreenFeatureImpl()
+        CameraPairingScreenFeatureImpl(),
+        CameraControlFeatureImpl(),
+        CControlFeatureImpl()
     )
 
 

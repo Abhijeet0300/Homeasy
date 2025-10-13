@@ -38,6 +38,8 @@ import androidx.compose.ui.res.painterResource
 import com.thingclips.smart.sdk.bean.DeviceBean
 import io.homeasy.app.core.utils.ui.theme.Orange
 import io.homeasy.app.R
+import io.homeasy.app.feature_connection.domain.model.DeviceType
+import io.homeasy.app.feature_connection.domain.model.toDeviceType
 
 @Composable
 fun Room(
@@ -63,18 +65,41 @@ fun Room(
     }
 
 
-    LazyColumn {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
         // room devices
         item{
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
             ) {
                 items(roomBean?.deviceList?.size ?: 0) { index ->
-                    RoomDevices(
-                        deviceBean = roomBean?.deviceList!!.get(index),
-                        navController = navController,
-                        roomViewModel = roomViewModel
+                    val deviceBean = roomBean?.deviceList!!.get(index)
+                    val deviceType = deviceBean.toDeviceType()
+                    RegularButton(
+                        label = "${deviceBean.name}",
+                        onClick = {
+                            when (deviceType) {
+                                DeviceType.LIGHT -> {
+                                    roomViewModel.setSelectedDevice(deviceBean)
+                                    navController.navigate(route = AppRoutes.LIGHT_SCREEN)
+                                }
+                                DeviceType.CAMERA -> {
+                                    roomViewModel.setSelectedDevice(deviceBean)
+                                    navController.navigate(route = AppRoutes.C_CONTROL)
+                                }
+                                else -> {
+                                    Toast.makeText(context, "Unknown device type", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+
+                        }
                     )
+//                    RoomDevices(
+//                        deviceBean = roomBean?.deviceList!!.get(index),
+//                        navController = navController,
+//                        roomViewModel = roomViewModel
+//                    )
                 }
             }
         }
@@ -98,7 +123,7 @@ fun RoomDevices(
     roomViewModel : RoomViewModel
 ) {
     Card(
-        modifier = Modifier.size(100.dp).combinedClickable(
+        modifier = Modifier.size(150.dp).combinedClickable(
             onClick = {
                 roomViewModel.setSelectedDevice(deviceBean)
                 navController.navigate(route = AppRoutes.LIGHT_SCREEN)
@@ -126,7 +151,7 @@ fun RoomDevices(
                 )
 
                 Text(
-                    text = "${deviceBean.category}"
+                    text = "${deviceBean.name}"
                 )
             }
         }
