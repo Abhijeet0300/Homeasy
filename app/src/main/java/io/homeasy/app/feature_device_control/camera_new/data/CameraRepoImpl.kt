@@ -10,6 +10,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.homeasy.app.feature_device_control.camera_new.domain.repository.CameraRepo
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class CameraRepoImpl @Inject constructor(
@@ -31,13 +34,15 @@ class CameraRepoImpl @Inject constructor(
     ): Result<Unit> {
         return suspendCancellableCoroutine { continuation->
             val dir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
 //            val dir = Environment.getExternalStorageDirectory().absolutePath + folderPath
             val file = File(dir, folderPath)
-
             if(!file.exists()) {
                 file.mkdirs()
             }
-            cameraP2P?.startRecordLocalMp4(dir?.absolutePath, context, object : OperationDelegateCallBack{
+            val outputFilePath = "${file.absolutePath}/record_$timeStamp.mp4"
+
+            cameraP2P?.startRecordLocalMp4(outputFilePath, context, object : OperationDelegateCallBack{
                 override fun onSuccess(
                     sessionId: Int,
                     requestId: Int,

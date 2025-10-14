@@ -49,6 +49,7 @@ fun CControl(
         mutableStateOf<ThingCameraView?>(null)
     }
     val devId = deviceBean?.devId
+    var isViewCreated by remember { mutableStateOf(false) }
 
 
     LaunchedEffect(deviceBean?.devId) {
@@ -83,7 +84,7 @@ fun CControl(
             label = "Start",
             onClick = {
                 if(isCameraP2PCreated) {
-                    cameraControlViewModel.startRecording("/Camera/", context)
+                    cameraControlViewModel.startRecording("Camera", context)
                 } else {
                     Log.e("CameraControl", "CameraP2P not created")
                 }
@@ -109,6 +110,7 @@ fun CControl(
                             override fun onCreated(view: Any?) {
                                 super.onCreated(view)
                                 cameraView?.createVideoView(deviceBean!!.devId)
+                                isViewCreated = true
 //                        if (isCameraP2PCreated && view != null) {
 //                            cameraControlViewModel.bindView(cameraView, deviceBean!!.devId)
 //                        } else {
