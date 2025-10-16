@@ -113,6 +113,9 @@ dependencies {
     //Color picker
     implementation(libs.colorpicker.compose)
 
+    //Fresco
+    implementation("com.facebook.fresco:fresco:3.6.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

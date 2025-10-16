@@ -22,9 +22,9 @@ class CameraRepoImpl @Inject constructor(
 
     private var cameraP2P : IThingSmartCameraP2P<Any?>? = null
     private var listener : AbsP2pCameraListener? = null
-    override fun createCameraP2P(devId: String) : Boolean {
+    override fun createCameraP2P(devId: String) : IThingSmartCameraP2P<Any?>? {
         cameraP2P = cameraInstance.createCameraP2P(devId)
-        return cameraP2P != null
+        return cameraP2P
     }
 
     override suspend fun startRecording(
@@ -112,7 +112,7 @@ class CameraRepoImpl @Inject constructor(
 
     override suspend fun startPreview(): Result<String> {
         return suspendCancellableCoroutine { continuation->
-            cameraP2P?.startPreview(0, object : OperationDelegateCallBack{
+            cameraP2P?.startPreview(2, object : OperationDelegateCallBack{
                 override fun onSuccess(
                     sessionId: Int,
                     requestId: Int,

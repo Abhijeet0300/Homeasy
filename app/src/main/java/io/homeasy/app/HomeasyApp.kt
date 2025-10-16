@@ -1,6 +1,7 @@
 package io.homeasy.app
 
 import android.app.Application
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.thingclips.smart.android.camera.sdk.ThingIPCSdk
 import com.thingclips.smart.home.sdk.ThingHomeSdk
 import dagger.hilt.android.HiltAndroidApp
@@ -13,7 +14,9 @@ class HomeasyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Fresco.initialize(this)
         ThingHomeSdk.init(this, AppKeys.TUYA_APP_KEY, AppKeys.TUYA_APP_SECRET)
         appProcessObserver.intialize()
+
     }
 }
